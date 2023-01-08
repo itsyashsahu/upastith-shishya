@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Upasthith Guru</string>
+    <string name="base_url">https://edp-project.vercel.app/api/</string>
 </resources>

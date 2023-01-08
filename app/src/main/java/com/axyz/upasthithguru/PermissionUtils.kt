@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.fragment.app.DialogFragment
 
 class MyDialogFragment(private val activity: Activity, private val title: String, private val message: String) : DialogFragment() {
@@ -31,19 +29,19 @@ class MyDialogFragment(private val activity: Activity, private val title: String
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(title)
             .setMessage(message)
-            .setPositiveButton("APP SETTINGS", DialogInterface.OnClickListener { dialog, id ->
+            .setPositiveButton("APP SETTINGS") { dialog, _ ->
                 permissionDialogShown--
-                // Open the app settings when the "Open app settings" button is clicked
+                // Open the app settings when the "App settings" button is clicked
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                     data = Uri.fromParts("package", activity.packageName, null)
                 }
                 activity.startActivity(intent)
-            })
-            .setNegativeButton("QUIT", DialogInterface.OnClickListener { dialog, id ->
-                // Quit the app when the "Quit app" button is clicked
+            }
+            .setNegativeButton("QUIT") { dialog, id ->
+                // Quit the app when the "Quit" button is clicked
                 permissionDialogShown--
                 activity.finish()
-            })
+            }
         return builder.create()
     }
 }
@@ -79,7 +77,11 @@ object PermissionUtils {
         }
     }
 
-    fun onRequestPermissionsResult(activity: AppCompatActivity,requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    fun onRequestPermissionsResult(
+        activity: AppCompatActivity,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         var coarseLocationDenied = false
         var fineLocationDenied = false
         var advertisePermissionDenied = false
@@ -111,13 +113,13 @@ object PermissionUtils {
         } else if (coarseLocationDenied && fineLocationDenied) {
             handleBothLocationPermissionsDenied(activity)
         } else if (coarseLocationDenied) {
-            handleCoarseLocationPermissionDenied(activity)
+            handleCoarseLocationPermissionDenied()
         } else if (fineLocationDenied) {
             handleFineLocationPermissionDenied(activity)
         } else if (advertisePermissionDenied) {
-            handleBluetoothAdvertisePermissionDenied(activity)
+            handleBluetoothAdvertisePermissionDenied()
         } else if (scanPermissionDenied) {
-            handleBluetoothScanPermissionDenied(activity)
+            handleBluetoothScanPermissionDenied()
         } else if (connectPermissionDenied) {
             handleBluetoothConnectPermissionDenied(activity)
         }
@@ -138,11 +140,11 @@ object PermissionUtils {
         Log.d("Permissions -> ","handleBluetoothPermissionDenied")
     }
 
-    private fun handleBluetoothAdvertisePermissionDenied(activity: AppCompatActivity) {
+    private fun handleBluetoothAdvertisePermissionDenied() {
         Log.d("Permissions -> ","handleBluetoothAdvertisePermissionDenied")
     }
 
-    private fun handleBluetoothScanPermissionDenied(activity: AppCompatActivity) {
+    private fun handleBluetoothScanPermissionDenied() {
         Log.d("Permissions -> ","handleBluetoothScanPermissionDenied")
 
     }
@@ -158,7 +160,7 @@ object PermissionUtils {
                 "location access and the \"Nearby\n" +
                 "Devices\" permission (Android 12+ only)\n" +
                 "to enable unfiltered Bluetooth Low\n" +
-                "Energy soanning as part of Android's\n" +
+                "Energy scanning as part of Android's\n" +
                 "requirements.\n" +
                 "\n" +
                 "Your location is never used by\n" +
@@ -167,7 +169,7 @@ object PermissionUtils {
         Log.d("Permissions -> ","handleFineLocationPermissionDenied")
     }
 
-    private fun handleCoarseLocationPermissionDenied(activity: AppCompatActivity) {
+    private fun handleCoarseLocationPermissionDenied() {
         Log.d("Permissions -> ","handleCoarseLocationPermissionDenied")
     }
 
