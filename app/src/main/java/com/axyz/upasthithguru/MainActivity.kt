@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
+import com.axyz.upasthithguru.other.CheckLogin
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 
@@ -24,21 +26,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val startAttendanceBtn = findViewById<Button>(R.id.start_attendance)
-        val signupBtn = findViewById<Button>(R.id.signup)
-        val loginBtn = findViewById<Button>(R.id.login)
-        startAttendanceBtn.setOnClickListener {
-//            val intent = Intent(this, StartAttendance::class.java)
+
+        if(CheckLogin(this)){
+            Toast.makeText(this,"User Already Signed In", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, HomeActivity::class.java))
+        }else{
+            startActivity(Intent(this, OnboardingActivity::class.java))
+        }
+
+//        val startAttendanceBtn = findViewById<Button>(R.id.start_attendance)
+//        val signupBtn = findViewById<Button>(R.id.signup)
+//        val loginBtn = findViewById<Button>(R.id.login)
+//
+//        startAttendanceBtn.setOnClickListener {
+////            val intent = Intent(this, StartAttendance::class.java)
+////            startActivity(intent)
+//        }
+//        loginBtn.setOnClickListener {
+//            val intent = Intent(this,LoginActivity::class.java)
 //            startActivity(intent)
-        }
-        loginBtn.setOnClickListener {
-            val intent = Intent(this,Login::class.java)
-            startActivity(intent)
-        }
-        signupBtn.setOnClickListener {
-            val intent = Intent(this, Signup::class.java)
-            startActivity(intent)
-        }
+//        }
+//        signupBtn.setOnClickListener {
+//            val intent = Intent(this, Signup::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onRequestPermissionsResult(
