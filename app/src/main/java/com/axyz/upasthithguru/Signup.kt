@@ -90,16 +90,9 @@ class Signup : AppCompatActivity() {
         nameEditText.error = null
         emailEditText.error = null
         passwordEditText.error = null
-//
-//        val InstructorManager = InstructorManager()
-//        val instructor = Instructor(email,email,name,description)
-//        InstructorManager.insertInstructor(instructor)
-//        println("Instructors ->  ${InstructorManager.getAllInstructor()} ")
         d("Signup Submit ","Signup $name $email $password")
         val signupUser = SignupRequest( name,email,password,description )
         signupViewModel.signup(signupUser)
-//        postLogin()
-
     }
 
     private fun subscribeToObservers() {
@@ -139,11 +132,4 @@ class Signup : AppCompatActivity() {
         })
     }
 
-}
-
-fun isValidPassword(password: String): Boolean {
-//    val pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}\$"
-    val pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}\$"
-    val regex = Regex(pattern)
-    return password.matches(regex)
 }
