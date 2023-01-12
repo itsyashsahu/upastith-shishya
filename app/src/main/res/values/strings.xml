@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Upasthith Guru</string>
+    <string name="app_name">Upasthith Shishya</string>
     <string name="base_url">https://edp-project.vercel.app/api/</string>
 </resources>
