@@ -29,7 +29,7 @@ object AppModule {
     @Singleton
     @Provides
     fun providesRetrofitInstance(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://edp-project.vercel.app/api/")
+        .baseUrl("https://upasthit-backend.vercel.app/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

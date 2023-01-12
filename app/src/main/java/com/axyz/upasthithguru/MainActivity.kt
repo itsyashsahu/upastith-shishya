@@ -30,26 +30,11 @@ class MainActivity : AppCompatActivity() {
         if(CheckLogin(this)){
             Toast.makeText(this,"User Already Signed In", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }else{
             startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
         }
-
-//        val startAttendanceBtn = findViewById<Button>(R.id.start_attendance)
-//        val signupBtn = findViewById<Button>(R.id.signup)
-//        val loginBtn = findViewById<Button>(R.id.login)
-//
-//        startAttendanceBtn.setOnClickListener {
-////            val intent = Intent(this, StartAttendance::class.java)
-////            startActivity(intent)
-//        }
-//        loginBtn.setOnClickListener {
-//            val intent = Intent(this,LoginActivity::class.java)
-//            startActivity(intent)
-//        }
-//        signupBtn.setOnClickListener {
-//            val intent = Intent(this, Signup::class.java)
-//            startActivity(intent)
-//        }
     }
 
     override fun onRequestPermissionsResult(
