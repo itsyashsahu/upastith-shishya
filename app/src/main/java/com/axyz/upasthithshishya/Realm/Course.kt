@@ -15,7 +15,7 @@ import java.util.*
 open class Course() : RealmObject {
     @PrimaryKey var id: String = ""
     var name: String = ""
-    private var courseCode: String = ""
+    var courseCode: String = ""
     var courseDescription: String = ""
     var courseCredits: String = ""
     var courseDepartment: String = ""
