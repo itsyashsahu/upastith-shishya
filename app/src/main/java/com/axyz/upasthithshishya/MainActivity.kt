@@ -37,26 +37,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        PermissionUtils.onRequestPermissionsResult(this, permissions, grantResults)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("RESUME", "On Resume Called --- $permissionDialogShown")
-        if (!PermissionUtils.hasPermissions(this) && permissionDialogShown < 1) {
-            PermissionUtils.requestPermissions(this)
-            Log.d("Permissions -> ", "All Not Permission Given -> ")
-        } else {
-            Log.d("Permissions -> ", "All Permission Given")
-        }
-    }
 }
 
 
