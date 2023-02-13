@@ -3,7 +3,7 @@ package com.axyz.upasthithshishya.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.axyz.upasthithshis.fragments.HomeFragment
+import com.axyz.upasthithshishya.fragments.HomeFragment
 import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.fragments.AttendanceFragment
 import com.axyz.upasthithshishya.fragments.SettingFragment

@@ -4,9 +4,7 @@ import android.util.Log
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.query.RealmResults
-import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 import java.util.*
@@ -22,7 +20,7 @@ open class Course() : RealmObject {
     var courseYear: String = ""
     var courseSemester: String = ""
     var serviceIdForInstructor: String = ""
-    val instructors: RealmList<Instructor> = realmListOf()
+    val instructors: MutableList<Instructor> = mutableListOf()
     val enrolledStudentsData: MutableList<EnrolledStudent> = mutableListOf()
     val courseAttendance: MutableList<ClassAttendance> = mutableListOf()
 

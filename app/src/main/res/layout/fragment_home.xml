@@ -59,19 +59,6 @@
             android:layout_marginBottom="15dp"
             tools:listitem="@layout/item_courses" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addNewCourseFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/homeRecView"
-            android:layout_alignParentBottom="true"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:layout_marginBottom="15dp"
-            android:backgroundTint="@color/custom_primary_color_chosen"
-            android:clickable="true"
-            android:src="@android:drawable/ic_input_add" />
-
     </RelativeLayout>
 
 </FrameLayout>
