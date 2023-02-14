@@ -1,44 +1,51 @@
-package com.axyz.upasthithshishya
+package com.axyz.upasthithshishya.activity
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log.d
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.axyz.upasthithshishya.R
+import com.axyz.upasthithshishya.activity.LoginActivity
 import com.axyz.upasthithshishya.apidata.SignupRequest
-import com.axyz.upasthithshishya.databinding.SignupBinding
 import com.axyz.upasthithshishya.other.CheckLogin
 import com.axyz.upasthithshishya.other.EventObserver
 import com.axyz.upasthithshishya.viewModels.SignupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Signup : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var descriptionEditText: EditText
+//    private lateinit var descriptionEditText: EditText
     private lateinit var signupViewModel: SignupViewModel
-    private lateinit var binding: SignupBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = SignupBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        nameEditText = binding.name
-        emailEditText = binding.email
-        passwordEditText = binding.password
-        descriptionEditText = binding.description
-        binding.signupButton.setOnClickListener { handleSignupFormSubmission() }
+        setContentView(R.layout.activity_register)
+
+        nameEditText = findViewById(R.id.input_username)
+        emailEditText = findViewById(R.id.input_email)
+        passwordEditText = findViewById(R.id.input_password)
         signupViewModel = ViewModelProvider(this)[SignupViewModel::class.java]
+
+        val alreadyhaveaccount = findViewById<TextView>(R.id.alreadyhaveaccount)
+        alreadyhaveaccount.setOnClickListener {
+            navigateToLoginActivity()
+        }
+
+        val click_register = findViewById<Button>(R.id.click_register)
+        click_register.setOnClickListener {
+            handleSignupFormSubmission()
+        }
 
         nameEditText.setText("Yash")
         emailEditText.setText("Yashsahu12345@gmail.com")
         passwordEditText.setText("12345A@ha")
-        descriptionEditText.setText("This is dummy Description")
 
         subscribeToObservers()
 
@@ -48,13 +55,15 @@ class Signup : AppCompatActivity() {
         }
 
     }
+
+
     private fun handleSignupFormSubmission() {
         // Get the values of the form fields
 
         val name = nameEditText.text.toString()
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
-        val description = descriptionEditText.text.toString()
+        val description = "descriptionEditText.text.toString()"
 
         // Validate the form fields
         if (name.isEmpty()) {
@@ -64,24 +73,25 @@ class Signup : AppCompatActivity() {
         }
         if (email.isEmpty()) {
             // Display an error message if the email field is empty
-            Toast.makeText(this,"Please enter your email",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Please enter your email", Toast.LENGTH_SHORT).show()
             emailEditText.error = "Please enter your email"
             return
         }
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             // Display an error message if the email is not a valid email address
-            Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Please enter a valid email", Toast.LENGTH_SHORT).show()
             emailEditText.error = "Please enter a valid email"
             return
         }
         if (password.isEmpty()) {
             // Display an error message if the password field is empty
-            Toast.makeText(this,"Please enter a password",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Please enter a password", Toast.LENGTH_SHORT).show()
             passwordEditText.error = "Please enter a password"
             return
         }
         if (!isValidPassword(password)) {
-            Toast.makeText(this,"Password must include 1 number,1 Capital, 1 small & 1 special Character",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Password must include 1 number,1 Capital, 1 small & 1 special Character",
+                Toast.LENGTH_SHORT).show()
             passwordEditText.error = "Password must include 1 number,1 Capital, 1 small & 1 special Character"
             return
         }
@@ -90,7 +100,7 @@ class Signup : AppCompatActivity() {
         nameEditText.error = null
         emailEditText.error = null
         passwordEditText.error = null
-        d("Signup Submit ","Signup $name $email $password")
+        Log.d("Signup Submit ", "Signup $name $email $password")
         val signupUser = SignupRequest( name,email,password,description )
         signupViewModel.signup(signupUser)
     }
@@ -98,33 +108,33 @@ class Signup : AppCompatActivity() {
     private fun subscribeToObservers() {
         signupViewModel.signupStatus.observe(this, EventObserver(
             onError = {
-                binding.name.isVisible = false
-                binding.email.isVisible = false
-                binding.password.isVisible = false
-                binding.description.isVisible = false
-                binding.signupButton.isVisible = false
-                binding.progressBar2.isVisible = false
-                binding.error.isVisible = true
-                d("LoginActivity", "Error: $it")
+//                binding.name.isVisible = false
+//                binding.email.isVisible = false
+//                binding.password.isVisible = false
+//                binding.description.isVisible = false
+//                binding.signupButton.isVisible = false
+//                binding.progressBar2.isVisible = false
+//                binding.error.isVisible = true
+                Log.d("LoginActivity", "Error: $it")
             },
             onLoading = {
 
-                binding.name.isVisible = false
-                binding.email.isVisible = false
-                binding.password.isVisible = false
-                binding.description.isVisible = false
-                binding.signupButton.isVisible = false
-                binding.progressBar2.isVisible = true
-                d("LoginActivity", "Loading")
+//                binding.name.isVisible = false
+//                binding.email.isVisible = false
+//                binding.password.isVisible = false
+//                binding.description.isVisible = false
+//                binding.signupButton.isVisible = false
+//                binding.progressBar2.isVisible = true
+                Log.d("LoginActivity", "Loading")
             }
         ) { user ->
-            binding.name.isVisible = false
-            binding.email.isVisible = false
-            binding.password.isVisible = false
-            binding.description.isVisible = false
-            binding.signupButton.isVisible = false
-            binding.progressBar2.isVisible = false
-            d("LoginActivity", "Success: $user")
+//            binding.name.isVisible = false
+//            binding.email.isVisible = false
+//            binding.password.isVisible = false
+//            binding.description.isVisible = false
+//            binding.signupButton.isVisible = false
+//            binding.progressBar2.isVisible = false
+            Log.d("LoginActivity", "Success: $user")
             Intent(this, MainActivity::class.java).also {
                 startActivity(it)
                 finish()
@@ -132,4 +142,15 @@ class Signup : AppCompatActivity() {
         })
     }
 
+    private fun navigateToLoginActivity(){
+        startActivity(Intent(applicationContext, LoginActivity::class.java))
+    }
+}
+
+
+fun isValidPassword(password: String): Boolean {
+//    val pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}\$"
+    val pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}\$"
+    val regex = Regex(pattern)
+    return password.matches(regex)
 }

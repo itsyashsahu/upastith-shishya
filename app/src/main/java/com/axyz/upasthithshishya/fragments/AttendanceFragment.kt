@@ -11,7 +11,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import com.axyz.upasthithshishya.GiveAttendance
+import com.axyz.upasthithshishya.activity.GiveAttendance
 import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.Realm.CourseManager
 import com.axyz.upasthithshishya.activity.ProfileActivity

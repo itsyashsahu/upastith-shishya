@@ -1,4 +1,4 @@
-package com.axyz.upasthithshishya
+package com.axyz.upasthithshishya.activity
 
 
 import android.app.Dialog
@@ -9,7 +9,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
+import com.axyz.upasthithshishya.*
+import com.axyz.upasthithshishya.other.CameraPreview
 
 class GiveAttendance : AppCompatActivity() {
     private lateinit var cameraPreview: CameraPreview

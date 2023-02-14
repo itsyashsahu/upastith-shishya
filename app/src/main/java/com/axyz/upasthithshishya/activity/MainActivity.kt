@@ -1,10 +1,11 @@
-package com.axyz.upasthithshishya
+package com.axyz.upasthithshishya.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.activity.HomeActivity
 import com.axyz.upasthithshishya.activity.OnboardingActivity
 import com.axyz.upasthithshishya.other.CheckLogin

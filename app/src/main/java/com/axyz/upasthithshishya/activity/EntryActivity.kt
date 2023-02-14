@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.axyz.upasthithshishya.R
-import com.axyz.upasthithshishya.RegisterActivity
 
 //import com.axyz.upasthithshishya.databinding.ActivityMainBinding
 
