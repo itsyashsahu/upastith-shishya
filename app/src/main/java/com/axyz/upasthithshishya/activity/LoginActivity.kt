@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             navigateToUpdatePasswordActivity()
         }
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        emailEditText.setText("Yashsahu12345@gmail.com")
+        emailEditText.setText("ygoel172001@gmail.com")
         passwordEditText.setText("12345A@ha")
 
         subscribeToObservers()

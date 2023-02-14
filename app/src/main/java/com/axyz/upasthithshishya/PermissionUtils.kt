@@ -14,6 +14,7 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 
@@ -40,7 +41,7 @@ class MyDialogFragment(private val activity: Activity, private val title: String
             .setNegativeButton("QUIT") { dialog, id ->
                 // Quit the app when the "Quit" button is clicked
                 permissionDialogShown--
-                activity.finish()
+                finishAffinity(activity)
             }
         return builder.create()
     }
@@ -51,6 +52,7 @@ object PermissionUtils {
     private val REQUIRED_PERMISSIONS: Array<String> =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             arrayOf(
+                Manifest.permission.CAMERA,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.BLUETOOTH_CONNECT,
@@ -59,6 +61,7 @@ object PermissionUtils {
             )
         } else {
             arrayOf(
+                Manifest.permission.CAMERA,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
@@ -87,6 +90,7 @@ object PermissionUtils {
         var advertisePermissionDenied = false
         var scanPermissionDenied = false
         var connectPermissionDenied = false
+        var cameraPermissionDenied = false
         for ((index, permission) in permissions.withIndex()) {
             if (grantResults[index] == PackageManager.PERMISSION_DENIED) {
                 when (permission) {
@@ -105,6 +109,9 @@ object PermissionUtils {
                     Manifest.permission.BLUETOOTH_CONNECT -> {
                         connectPermissionDenied = true
                     }
+                    Manifest.permission.CAMERA -> {
+                        cameraPermissionDenied = true
+                    }
                 }
             }
         }
@@ -122,6 +129,8 @@ object PermissionUtils {
             handleBluetoothScanPermissionDenied()
         } else if (connectPermissionDenied) {
             handleBluetoothConnectPermissionDenied(activity)
+        } else if(cameraPermissionDenied){
+            handleCameraPermissionDenied(activity)
         }
     }
 
@@ -193,7 +202,13 @@ object PermissionUtils {
         showDialogFragment(activity,title,msg)
         Log.d("Permissions -> ","handleCoarseLocationPermissionDenied")
     }
-
+    private fun handleCameraPermissionDenied(activity: AppCompatActivity) {
+        val title = "Camera Permission Required"
+//      Add a msg
+        val msg = "Camera Permission is required in this app to proceed"
+        showDialogFragment(activity,title,msg)
+        Log.d("Permissions -> ","handleCameraPermissionDenied")
+    }
 }
 
 
