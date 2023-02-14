@@ -10,6 +10,12 @@
         android:text="Enter PIN:"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+    <TextView
+        android:id="@+id/showWrongPinText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
     <EditText
         android:id="@+id/pinEditText"
         android:layout_width="match_parent"
