@@ -57,7 +57,7 @@ class GiveAttendance : AppCompatActivity() {
             val pin = pinEditText.text.toString()
             if (pin.length == 4) {
                 if (pin == "1234") {
-                    val intent = Intent(this, StartAttendance::class.java)
+                    val intent = Intent(this, MarkAttendence::class.java)
                     startActivity(intent)
                 } else {
                     errorMessageTextView.text = "Incorrect PIN. Please try again."
