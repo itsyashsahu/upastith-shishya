@@ -1,16 +1,21 @@
-package com.axyz.upasthithshishya
+package com.axyz.upasthithshishya.activity
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.bluetooth.*
 import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
+import android.content.Intent
 import android.os.*
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import com.axyz.upasthithshishya.R
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -30,25 +35,45 @@ val CoustomServiceUuidPrefix = "f4f5f6f9"
 class MarkAttendence : AppCompatActivity() {
 
     private lateinit var bluetoothGattServer: BluetoothGattServer
-
     // Data Class for Characteristics Object That is written & Read
     lateinit var RollNo: String
-
     //    = intent.getStringExtra("Roll_no")
     lateinit var uservice: String
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mark_attendance)
+
+        // Create a Dialog object and set its content view.
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.activity_mark_attendance)
+
+        // Set the dialog to not be dismissible when touched outside its window.
+        dialog.setCanceledOnTouchOutside(false)
+        val retryButton = dialog.findViewById<Button>(R.id.retryButton)
+        retryButton.visibility = View.INVISIBLE
+
+        // Define a Handler to post a delayed message
+        val handler = Handler()
+        handler.postDelayed({
+            // Update the visibility of the retryButton to visible
+            retryButton.visibility = View.VISIBLE
+            retryButton.setOnClickListener {
+                startActivity(Intent(this,GiveAttendance::class.java))
+            }
+        }, 30000)
+
+        // Show the dialog.
+        dialog.show()
         RollNo = intent.getStringExtra("RollNo").toString()
-//        println("The Value of Roll-No -> $RollNo")
+
+        // println("The Value of Roll-No -> $RollNo")
         startGattSever()
-//        if (PermissionUtils.hasPermissions(this)) {
-//        } else {
-//            println("BroadCasting BLocked --------------------------------------------> ${!PermissionUtils.hasPermissions(this)}")
-//            PermissionUtils.requestPermissions(this)
-//        }
+        // if (PermissionUtils.hasPermissions(this)) {
+        // } else {
+            // println("BroadCasting BLocked --------------------------------------------> ${!PermissionUtils.hasPermissions(this)}")
+            // PermissionUtils.requestPermissions(this)
+        // }
     }
 
     @SuppressLint("MissingPermission")
@@ -63,13 +88,13 @@ class MarkAttendence : AppCompatActivity() {
         }
 
         // Check if Bluetooth is enabled
-        if (!bluetoothAdapter.isEnabled()) {
+        if (!bluetoothAdapter.isEnabled) {
             Log.i("Bluetooth", "Bluetooth is not enabled, enabling now...")
             bluetoothAdapter.enable()
 
         }
 
-        if (!bluetoothAdapter.isEnabled()) {
+        if (!bluetoothAdapter.isEnabled) {
             Log.i("Bluetooth UPDate", "Bluetooth is not enabled")
 //            bluetoothAdapter.enable()
         } else {
@@ -227,5 +252,7 @@ class MarkAttendence : AppCompatActivity() {
     fun closeBluetoothGattServer(gattServer: BluetoothGattServer) {
         gattServer.close()
     }
-
+    override fun onBackPressed() {
+        // Do nothing
+    }
 }

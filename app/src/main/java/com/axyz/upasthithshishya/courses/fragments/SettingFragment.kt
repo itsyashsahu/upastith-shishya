@@ -1,4 +1,4 @@
-package com.axyz.upasthithshishya.fragments
+package com.axyz.upasthithshishya.courses.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
