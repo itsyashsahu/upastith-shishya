@@ -1,24 +1,17 @@
-package com.axyz.upasthithshishya
+package com.axyz.upasthithshishya.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.activity.HomeActivity
 import com.axyz.upasthithshishya.activity.OnboardingActivity
 import com.axyz.upasthithshishya.other.CheckLogin
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class CharacteristicDataClass(val attendance: Boolean)
-
-@Serializable
-data class CharacteristicDataBroadcast(val RollNo: String?)
-
-const val CustomCharUuid = "ff82240a-27c1-4661-a15a-be5a22a17256"
-const val CustomServiceUuidPrefix = "f4f5f6f9"
 var permissionDialogShown = 0
 
 

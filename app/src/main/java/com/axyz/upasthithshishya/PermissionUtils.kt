@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.axyz.upasthithshishya.activity.permissionDialogShown
 
 class MyDialogFragment(private val activity: Activity, private val title: String, private val message: String) : DialogFragment() {
 

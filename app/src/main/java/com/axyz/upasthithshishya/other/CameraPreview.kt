@@ -1,4 +1,4 @@
-package com.axyz.upasthithshishya
+package com.axyz.upasthithshishya.other
 
 import android.content.Context
 import android.hardware.Camera
