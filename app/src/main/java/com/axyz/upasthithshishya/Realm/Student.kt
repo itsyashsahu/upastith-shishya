@@ -8,22 +8,32 @@ import io.realm.kotlin.query.RealmResults
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
-open class Student() : RealmObject{
-    @PrimaryKey var id : String = ""
+open class Student() : RealmObject {
+    @PrimaryKey
+    var id: String = ""
     private var emailId: String = ""
     var name: String = ""
     var batch: String = ""
     var branch: String = ""
     var rollNo: String = ""
-    var courses : MutableList<String> = mutableListOf()
+    var courses: MutableList<String> = mutableListOf()
 
-    constructor(id: String,emailId: String, name: String, batch: String, branch: String, rollNo: String) : this() {
-        this.id=id
+    constructor(
+        id: String,
+        emailId: String,
+        name: String,
+        batch: String,
+        branch: String,
+        rollNo: String,
+        courses: MutableList<String>
+    ) : this() {
+        this.id = id
         this.emailId = emailId
         this.name = name
         this.batch = batch
         this.branch = branch
         this.rollNo = rollNo
+        this.courses = courses
     }
 }
 
@@ -52,14 +62,22 @@ class StudentManager {
         try {
             realm.writeBlocking {
                 var student: Student? = this.query<Student>("_id == $0", emailId).first().find()
-                if(student != null ){
-                    if (name != null) { student.name = name }
-                    if (batch != null) { student.batch = batch }
-                    if (branch != null) { student.branch = branch }
-                    if (rollNo != null) { student.rollNo = rollNo }
+                if (student != null) {
+                    if (name != null) {
+                        student.name = name
+                    }
+                    if (batch != null) {
+                        student.batch = batch
+                    }
+                    if (branch != null) {
+                        student.branch = branch
+                    }
+                    if (rollNo != null) {
+                        student.rollNo = rollNo
+                    }
                     Log.d("Database Update :: ", "Student Details Updated Successfully")
 
-                }else{
+                } else {
                     Log.d("Database Error :: ", "No Student Found For the Given ID")
                 }
 
@@ -69,14 +87,14 @@ class StudentManager {
         }
     }
 
-    fun registerStudentCourse(emailId: String,courseId:String){
+    fun registerStudentCourse(emailId: String, courseId: String) {
         try {
             realm.writeBlocking {
                 var student: Student? = this.query<Student>("_id == $0", emailId).first().find()
-                if(student != null ){
+                if (student != null) {
                     student.courses.add(courseId)
                     Log.d("Database Update :: ", "Student Details Updated Successfully")
-                }else{
+                } else {
                     Log.d("Database Error :: ", "No Student Found For the Given ID")
                 }
 
@@ -86,14 +104,14 @@ class StudentManager {
         }
     }
 
-    fun deregisterStudentCourse(emailId: String,courseId:String){
+    fun deregisterStudentCourse(emailId: String, courseId: String) {
         try {
             realm.writeBlocking {
                 var student: Student? = this.query<Student>("_id == $0", emailId).first().find()
-                if(student != null ){
+                if (student != null) {
                     student.courses.remove(courseId)
                     Log.d("Database Update :: ", "Student Details Updated Successfully")
-                }else{
+                } else {
                     Log.d("Database Error :: ", "No Student Found For the Given ID")
                 }
 

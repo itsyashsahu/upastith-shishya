@@ -50,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this,"User Already Signed In",Toast.LENGTH_SHORT).show()
             finish()
         }
-
     }
 
     private fun navigateToUpdatePasswordActivity() {
