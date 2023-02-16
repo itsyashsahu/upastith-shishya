@@ -58,6 +58,8 @@ class GiveAttendance : AppCompatActivity() {
             val pin = pinEditText.text.toString()
             if (pin.length == 4) {
                 if (pin == "1234") {
+                    enterPinDialog.dismiss()
+                    finish()
                     val intent = Intent(this, MarkAttendence::class.java)
                     startActivity(intent)
                 } else {

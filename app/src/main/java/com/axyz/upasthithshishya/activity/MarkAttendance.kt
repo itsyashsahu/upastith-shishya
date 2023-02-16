@@ -1,13 +1,16 @@
 package com.axyz.upasthithshishya.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.bluetooth.*
 import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.nfc.Tag
 import android.os.*
 import android.util.Log
 import android.view.View
@@ -16,6 +19,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.axyz.upasthithshishya.R
+import com.axyz.upasthithshishya.courses.CourseInfo
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -29,23 +33,25 @@ data class CharacteristicDataClass(val attendance: Boolean)
 data class CharacteristicDataBroadcast(val RollNo: String?)
 
 
-val CoustomCharUuid = "ff82240a-27c1-4661-a15a-be5a22a17256"
-val CoustomServiceUuidPrefix = "f4f5f6f9"
+val CustomCharUuid = "ff82240a-27c1-4661-a15a-be5a22a17256"
+val CustomServiceUuidPrefix = "f4f5f6f9"
 
 class MarkAttendence : AppCompatActivity() {
 
     private lateinit var bluetoothGattServer: BluetoothGattServer
+
     // Data Class for Characteristics Object That is written & Read
     lateinit var RollNo: String
+    lateinit var dialog: Dialog
     //    = intent.getStringExtra("Roll_no")
-    lateinit var uservice: String
 
+    @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Create a Dialog object and set its content view.
-        val dialog = Dialog(this)
+        dialog = Dialog(this)
         dialog.setContentView(R.layout.activity_mark_attendance)
 
         // Set the dialog to not be dismissible when touched outside its window.
@@ -59,69 +65,81 @@ class MarkAttendence : AppCompatActivity() {
             // Update the visibility of the retryButton to visible
             retryButton.visibility = View.VISIBLE
             retryButton.setOnClickListener {
-                startActivity(Intent(this,GiveAttendance::class.java))
+                closeBluetoothGattServer(bluetoothGattServer)
+                dialog.cancel()
+                finish()
+                startActivity(Intent(this, GiveAttendance::class.java))
             }
-        }, 30000)
+        }, 60*1000)
 
         // Show the dialog.
         dialog.show()
         RollNo = intent.getStringExtra("RollNo").toString()
 
+        val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            ?: // Device does not support Bluetooth
+            return
+
+        val REQUEST_ENABLE_BT = 123
+        // Check if Bluetooth is enabled
+        if (!bluetoothAdapter.isEnabled) {
+            // Bluetooth is not enabled, request permission to enable it
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+        } else {
+            // Bluetooth is already enabled
+            startGattSever(bluetoothAdapter)
+        }
+
+
         // println("The Value of Roll-No -> $RollNo")
-        startGattSever()
         // if (PermissionUtils.hasPermissions(this)) {
         // } else {
-            // println("BroadCasting BLocked --------------------------------------------> ${!PermissionUtils.hasPermissions(this)}")
-            // PermissionUtils.requestPermissions(this)
+        // println("BroadCasting BLocked --------------------------------------------> ${!PermissionUtils.hasPermissions(this)}")
+        // PermissionUtils.requestPermissions(this)
         // }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 123) {
+            if (resultCode == Activity.RESULT_OK) {
+                // Bluetooth is now enabled, do something
+                val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+                    ?: // Device does not support Bluetooth
+                    return
+                startGattSever(bluetoothAdapter)
+            } else {
+//                Toast(this,this@StartAttendance,)
+                Log.e(TAG, "User Denied to Turn on Bluetooth")
+                // User did not enable Bluetooth, handle this case
+            }
+        }
+    }
+
+
     @SuppressLint("MissingPermission")
-    private fun startGattSever() {
+    private fun startGattSever(bluetoothAdapter: BluetoothAdapter) {
 
-        val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-
-        // Check if Bluetooth is supported on the device
-        if (bluetoothAdapter == null) {
-            Log.e("Bluetooth", "Bluetooth is not supported on this device")
-            return
-        }
-
-        // Check if Bluetooth is enabled
-        if (!bluetoothAdapter.isEnabled) {
-            Log.i("Bluetooth", "Bluetooth is not enabled, enabling now...")
-            bluetoothAdapter.enable()
-
-        }
-
-        if (!bluetoothAdapter.isEnabled) {
-            Log.i("Bluetooth UPDate", "Bluetooth is not enabled")
-//            bluetoothAdapter.enable()
-        } else {
-            Log.i("Bluetooth UPDate", "Bluetooth is enabled")
-        }
-
-
-//             Get the BluetoothLeAdvertiser
+        // Get the BluetoothLeAdvertiser
         val bluetoothLeAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
 
         // Check if Bluetooth LE advertising is supported on the device
         if (bluetoothLeAdvertiser == null) {
-            Log.e("Bluetooth", "Bluetooth LE advertising is not supported on this device")
+            Log.e(TAG,"---xxxxx---> Bluetooth LE advertising is not supported on this device")
             return
         }
 
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
 
-
         bluetoothGattServer =
             bluetoothManager.openGattServer(this, object : BluetoothGattServerCallback() {
-
                 override fun onConnectionStateChange(
                     device: BluetoothDevice, status: Int, newState: Int
                 ) {
                     if (newState == BluetoothProfile.STATE_CONNECTED) {
-                        println("Connected to the device - ${device.name ?: device.address}")
+                        Log.d(TAG,"------> Connected to the device - ${device.address}");
+//                        println("Connected to the device - ${device.name ?: device.address}")
                     }
                 }
 
@@ -131,20 +149,15 @@ class MarkAttendence : AppCompatActivity() {
                     offset: Int,
                     characteristic: BluetoothGattCharacteristic
                 ) {
-
-                    //                the below code shows the broadcasting device a toast that some device has
-                    //                requested to read the data and we are allowing them to read
-                    //                val handler = Handler(Looper.getMainLooper())
-                    //                handler.post {
-                    //                    Toast.makeText(this@MainActivity, "Requested to Read Characteristics", Toast.LENGTH_SHORT).show()
-                    //                }
-                    //                Toast.makeText(this@MainActivity,"Requested to Read Characteristics",Toast.LENGTH_SHORT).show()
-                    //                characteristic.value = "BroadCasted Guys !!!".toByteArray(Charsets.UTF_8)
                     println("request recieved from the device $device")
+                    Log.d(TAG,"------> Characteristic Read Request :: -> $device");
                     // Send the read response
-                    bluetoothGattServer.sendResponse(
-                        device, requestId, BluetoothGatt.GATT_SUCCESS, 0, characteristic.value
-                    )
+//                    if (
+                        bluetoothGattServer.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, offset, characteristic.value)
+//                    ) {
+//                        bluetoothGattServer.close()
+//                        Log.e(TAG, "Error sending read response server closed")
+//                    }
                 }
 
                 override fun onCharacteristicWriteRequest(
@@ -156,12 +169,7 @@ class MarkAttendence : AppCompatActivity() {
                     offset: Int,
                     value: ByteArray
                 ) {
-                    // Your code here
-                    // Serializing objects
-                    //                val characteristicData = CharacteristicDataClass(true)
-                    //                val dataJsonString = Json.encodeToString(characteristicData)
-                    //                characteristic.value=dataJsonString.toByteArray(Charsets.UTF_8)
-
+                    Log.d(TAG,"------> Characteristic Write Request :: -> $device");
                     val obj = Json.decodeFromString<CharacteristicDataClass>(
                         String(
                             value, Charsets.UTF_8
@@ -169,18 +177,17 @@ class MarkAttendence : AppCompatActivity() {
                     )
                     // add a coutom check to identify that the writer is our desired teacher only
                     // just for demo purpose
-                    if (obj.attendance == true) {
+                    if (obj.attendance) {
                         characteristic.value = value
-
                         val service: BluetoothGattService =
                             bluetoothGattServer.getService(characteristic.service.uuid)
                         bluetoothGattServer.removeService(service)
 
+                        // "Characteristics OverWritten with -> $value",
                         val handler = Handler(Looper.getMainLooper())
                         handler.post {
                             Toast.makeText(
                                 this@MarkAttendence,
-                                //                            "Characteristics OverWritten with -> $value",
                                 "Attendence Marked Successfully", Toast.LENGTH_LONG
                             ).show()
                         }
@@ -197,22 +204,30 @@ class MarkAttendence : AppCompatActivity() {
                         // diable the bluetooth device
 //                        bluetoothAdapter.disable()
                         // End this Activity
+                        dialog.cancel()
                         finish()
+                        startActivity(Intent(this@MarkAttendence,CourseInfo::class.java))
                     }
                 }
             })
+//
 
-        uservice = UUID.randomUUID().toString().replaceRange(
-            0..7, CoustomServiceUuidPrefix
-        )
+
+        val uuid = tryGeneratingUUIDWithPrefix(CustomServiceUuidPrefix)
+        if (uuid == null) {
+            // Show a toast to the user indicating that a valid UUID could not be generated
+            Log.e(TAG,"Failed to generate a valid UUID with prefix");
+            Toast.makeText(this, "Failed to generate a valid UUID with prefix", Toast.LENGTH_SHORT).show()
+        }
+        removeGattServicesWithPrefix(bluetoothGattServer, CustomServiceUuidPrefix)
 
         // Add the service to the server
         val service = BluetoothGattService(
-            UUID.fromString(uservice), BluetoothGattService.SERVICE_TYPE_PRIMARY
+            uuid, BluetoothGattService.SERVICE_TYPE_PRIMARY
         )
-        println("Characterist -> CoustomCharUuid  &&  ")
+//        println("Characterist -> CoustomCharUuid  &&  ")
         val characteristic = BluetoothGattCharacteristic(
-            UUID.fromString(CoustomCharUuid),
+            UUID.fromString(CustomCharUuid),
             BluetoothGattCharacteristic.PROPERTY_READ or BluetoothGattCharacteristic.PROPERTY_WRITE,
             BluetoothGattCharacteristic.PERMISSION_READ or BluetoothGattCharacteristic.PERMISSION_WRITE
         )
@@ -252,7 +267,34 @@ class MarkAttendence : AppCompatActivity() {
     fun closeBluetoothGattServer(gattServer: BluetoothGattServer) {
         gattServer.close()
     }
+
     override fun onBackPressed() {
         // Do nothing
     }
+    fun tryGeneratingUUIDWithPrefix(prefix: String): UUID? {
+        for (i in 1..10) {
+            val uuid = UUID.fromString(UUID.randomUUID().toString().replaceRange(
+                0..7, CustomServiceUuidPrefix
+            ))
+            if (uuid.version() == 4 && (uuid.variant() and 0x80) == 0) {
+                Log.d(TAG,"Generated UUID --> $uuid")
+                return uuid
+            }
+        }
+        return null
+    }
+    @SuppressLint("MissingPermission")
+    fun removeGattServicesWithPrefix(gattServer: BluetoothGattServer, uuidPrefix: String) {
+        val servicesToRemove = mutableListOf<BluetoothGattService>()
+        for (service in gattServer.services) {
+            val uuid = service.uuid.toString()
+            if (uuid.startsWith(uuidPrefix)) {
+                servicesToRemove.add(service)
+            }
+        }
+        for (service in servicesToRemove) {
+            gattServer.removeService(service)
+        }
+    }
+
 }
