@@ -13,11 +13,9 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.axyz.upasthithshishya.activity.GiveAttendance
 import com.axyz.upasthithshishya.R
-import com.axyz.upasthithshishya.Realm.CourseManager
 import com.axyz.upasthithshishya.activity.ProfileActivity
 
 class AttendanceFragment : Fragment() {
-    private val courseManager = CourseManager()
     private lateinit var courseDropDownButton: AutoCompleteTextView
     private val courseNames = mutableListOf<String>()
 
@@ -34,7 +32,7 @@ class AttendanceFragment : Fragment() {
 
     private fun updateDropDownAdapter() {
         courseNames.clear()
-        courseNames.addAll(courseManager.getAllCourse().map { it.name })
+//        courseNames.addAll(courseManager.getAllCourse().map { it.name })
         courseDropDownButton.setAdapter(ArrayAdapter(requireContext(), R.layout.course_list_dropdown, courseNames))
     }
 

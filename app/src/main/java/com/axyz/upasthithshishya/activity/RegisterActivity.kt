@@ -44,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         nameEditText.setText("Yash")
-        emailEditText.setText("Yashsahu12345@gmail.com")
+        emailEditText.setText("ys@gmail.com")
         passwordEditText.setText("12345A@ha")
 
         subscribeToObservers()
@@ -102,7 +102,7 @@ class RegisterActivity : AppCompatActivity() {
         passwordEditText.error = null
         Log.d("Signup Submit ", "Signup $name $email $password")
         val signupUser = SignupRequest( name,email,password,description )
-        signupViewModel.signup(signupUser)
+        signupViewModel.signup(email,password)
     }
 
     private fun subscribeToObservers() {
@@ -135,7 +135,7 @@ class RegisterActivity : AppCompatActivity() {
 //            binding.signupButton.isVisible = false
 //            binding.progressBar2.isVisible = false
             Log.d("LoginActivity", "Success: $user")
-            Intent(this, MainActivity::class.java).also {
+            Intent(this, HomeActivity::class.java).also {
                 startActivity(it)
                 finish()
             }

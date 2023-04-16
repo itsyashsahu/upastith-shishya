@@ -8,9 +8,9 @@ import com.axyz.upasthithshishya.apidata.LoginRequest
 import com.axyz.upasthithshishya.apidata.LoginResponseObject
 import com.axyz.upasthithshishya.apidata.ResponseObj
 import com.axyz.upasthithshishya.apidata.SignupRequest
+import com.axyz.upasthithshishya.data.AuthRepository
 import com.axyz.upasthithshishya.other.Event
 import com.axyz.upasthithshishya.other.Resource
-import com.axyz.upasthithshishya.repositories.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,16 +23,20 @@ class LoginViewModel @Inject constructor(
 //    constructor() : this(authRepository = AuthRepository())
 
     // Mutable Value
-    private val _loginStatus = MutableLiveData<Event<Resource<LoginResponseObject>>>()
+    private val _loginStatus = MutableLiveData<Event<Resource<ResponseObj>>>()
 
     // Immutable Value
-    val signupStatus: LiveData<Event<Resource<LoginResponseObject>>> = _loginStatus
+    val signupStatus: LiveData<Event<Resource<ResponseObj>>> = _loginStatus
 
-    fun login(loginRequest: LoginRequest) {
+    fun login(email:String,password:String){
         _loginStatus.postValue(Event(Resource.Loading()))
         viewModelScope.launch(Dispatchers.IO){
-            val resp = authRepository.loginUser(loginRequest)
+            val resp = authRepository.login(email, password)
             _loginStatus.postValue(Event(resp))
         }
     }
+}
+
+private fun <T> MutableLiveData<T>.postValue(event: Event<Unit>) {
+
 }

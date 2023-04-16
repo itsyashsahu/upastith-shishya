@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             navigateToUpdatePasswordActivity()
         }
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        emailEditText.setText("ygoel172001@gmail.com")
+        emailEditText.setText("ys@gmail.com")
         passwordEditText.setText("12345A@ha")
 
         subscribeToObservers()
@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
 
         d("Signup Submit ", "Signup $email $password")
         val loginUser = LoginRequest(email, password)
-        loginViewModel.login(loginUser)
+        loginViewModel.login(email,password)
 
     }
 
