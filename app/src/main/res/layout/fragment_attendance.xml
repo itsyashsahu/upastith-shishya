@@ -35,38 +35,15 @@
             android:src="@drawable/ic_person"
             android:background="@color/black"/>
 
-        <androidx.cardview.widget.CardView
+        <Button
             android:id="@+id/giveAttendanceButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="30dp"
-            app:cardBackgroundColor="@color/custom_color_bg"
-            app:cardCornerRadius="10dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center_horizontal"
-                    android:text="Give Attendance"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
+            android:layout_centerHorizontal="true"
+            android:text="Give Attendance"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/custom_primary_color_chosen"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
