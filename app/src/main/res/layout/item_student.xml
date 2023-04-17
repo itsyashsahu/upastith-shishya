@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    >
+    <TextView
+        android:id="@+id/item_StudentName"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="Vidit Jain"
+        android:textSize="14sp"
+        android:textColor="@color/custom_color_bg"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/item_StudentEmail"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_StudentName"
+        android:text="20bcs243@iiitdmj.ac.in"
+        android:textSize="8sp"
+        android:textColor="@color/custom_color_bg"
+        />
+    <TextView
+        android:id="@+id/item_attendance_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="76%"
+        android:layout_alignParentEnd="true"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:textColor="@color/custom_color_bg"
+        />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/item_StudentEmail"
+        android:background="?android:attr/listDivider"
+        />
+</RelativeLayout>

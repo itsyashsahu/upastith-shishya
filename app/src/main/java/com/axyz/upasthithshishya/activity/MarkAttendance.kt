@@ -225,6 +225,7 @@ class MarkAttendence : AppCompatActivity() {
         val service = BluetoothGattService(
             uuid, BluetoothGattService.SERVICE_TYPE_PRIMARY
         )
+
 //        println("Characterist -> CoustomCharUuid  &&  ")
         val characteristic = BluetoothGattCharacteristic(
             UUID.fromString(CustomCharUuid),
