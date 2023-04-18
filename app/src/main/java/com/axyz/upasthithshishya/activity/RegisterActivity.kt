@@ -49,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         nameEditText.setText("Yash")
-        emailEditText.setText("ys@gmail.com")
+        emailEditText.setText("yst@gmail.com")
         passwordEditText.setText("12345A@ha")
         rollNoEditText.setText("20BCS246")
         batchEditText.setText("2020")

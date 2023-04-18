@@ -3,10 +3,10 @@ package com.axyz.upasthithshishya.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.axyz.upasthithshishya.courses.fragments.HomeFragment
+import com.axyz.upasthithshishya.fragments.HomeFragment
 import com.axyz.upasthithshishya.R
-import com.axyz.upasthithshishya.courses.fragments.AttendanceFragment
-import com.axyz.upasthithshishya.courses.fragments.SettingFragment
+import com.axyz.upasthithshishya.fragments.AttendanceFragment
+import com.axyz.upasthithshishya.fragments.SettingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {

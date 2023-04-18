@@ -4,11 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.axyz.upasthithshishya.Realm.ClassAttendance
+//import com.axyz.upasthithshishya.Realm.ClassAttendance
 import com.axyz.upasthithshishya.Realm.Course
-import com.axyz.upasthithshishya.Realm.StudentRecord
+//import com.axyz.upasthithshishya.Realm.StudentRecord
 import com.axyz.upasthithshishya.app
-import com.axyz.upasthithshishya.domain.UserRole
 import dagger.Module
 import dagger.hilt.InstallIn
 import io.realm.kotlin.Realm
@@ -104,14 +103,15 @@ object realmModule{
         currentUser = app.currentUser!!
         Log.d("INIT REALM ----- ","----------------------- YES ---------------- $currentUser")
         val config: SyncConfiguration
-        config = SyncConfiguration.Builder(currentUser, setOf(UserRole::class,Course::class, ClassAttendance::class,StudentRecord::class))
+//        config = SyncConfiguration.Builder(currentUser, setOf(Course::class, ClassAttendance::class,StudentRecord::class))
+        config = SyncConfiguration.Builder(currentUser, setOf(Course::class))
             .initialSubscriptions { realm ->
                 // Subscribe to the active subscriptionType - first time defaults to MINE
 //                if(isJustUp){
                 add(realm.query<Course>(),"Course")
-                add(realm.query<ClassAttendance>(),"ClassAttendance")
-                add(realm.query<StudentRecord>(), "StudentRecord")
-                add(realm.query<UserRole>(), "UserRole")
+//                add(realm.query<ClassAttendance>(),"ClassAttendance")
+//                add(realm.query<StudentRecord>(), "StudentRecord")
+//                add(realm.query<UserRole>(), "UserRole")
 //                    isJustUp=false
 //                }
 
@@ -154,10 +154,10 @@ object realmModule{
             null,
 //            SubscriptionType.MINE.name -> SubscriptionType.MINE
 //            SubscriptionType.ALL.name -> SubscriptionType.ALL
-            SubscriptionType.USER_ROLE.name -> SubscriptionType.USER_ROLE
+//            SubscriptionType.USER_ROLE.name -> SubscriptionType.USER_ROLE
             SubscriptionType.COURSE.name -> SubscriptionType.COURSE
-            SubscriptionType.STUDENT_RECORD.name -> SubscriptionType.STUDENT_RECORD
-            SubscriptionType.CLASS_ATTENDANCE.name -> SubscriptionType.CLASS_ATTENDANCE
+//            SubscriptionType.STUDENT_RECORD.name -> SubscriptionType.STUDENT_RECORD
+//            SubscriptionType.CLASS_ATTENDANCE.name -> SubscriptionType.CLASS_ATTENDANCE
             else -> throw IllegalArgumentException("Invalid Realm Sync subscription: '$name'")
         }
     }
@@ -166,20 +166,20 @@ object realmModule{
         when (subscriptionType) {
 //            SubscriptionType.MINE -> realm.query("owner_id == $0", currentUser.id)
 //            SubscriptionType.ALL -> realm.query()
-            SubscriptionType.USER_ROLE -> realm.query<UserRole>()
+//            SubscriptionType.USER_ROLE -> realm.query<UserRole>()
             SubscriptionType.COURSE -> realm.query<Course>()
-            SubscriptionType.STUDENT_RECORD -> realm.query<StudentRecord>()
-            SubscriptionType.CLASS_ATTENDANCE -> realm.query<ClassAttendance>()
+//            SubscriptionType.STUDENT_RECORD -> realm.query<StudentRecord>()
+//            SubscriptionType.CLASS_ATTENDANCE -> realm.query<ClassAttendance>()
         }
 }
 
 enum class SubscriptionType {
     //    MINE,
 //    ALL ,
-    USER_ROLE,
+//    USER_ROLE,
     COURSE,
-    CLASS_ATTENDANCE,
-    STUDENT_RECORD,
+//    CLASS_ATTENDANCE,
+//    STUDENT_RECORD,
 }
 
 /**

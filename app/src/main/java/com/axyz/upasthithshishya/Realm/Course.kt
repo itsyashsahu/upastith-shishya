@@ -1,6 +1,7 @@
 package com.axyz.upasthithshishya.Realm
 
 import android.util.Log
+import com.axyz.upasthithshishya.app
 import com.axyz.upasthithshishya.data.realmModule
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.realmListOf
@@ -21,18 +22,22 @@ class Course() : RealmObject {
     var courseDepartment: String = ""
     var courseYear: String = ""
     var courseSemester: String = ""
-    var serviceIdForInstructor: String = ""
-    //    val instructors: MutableList<Instructor> = mutableListOf()
-//    var enrolledStudentsData: MutableList<EnrolledStudent> = mutableListOf()
-//    var courseAttendance: MutableList<ClassAttendance> = mutableListOf()
-    var courseAttendances: RealmList<ClassAttendance> = realmListOf<ClassAttendance>()
-//    var addresses: RealmList<Address> = realmListOf()
+    var createdByInstructor: String = ""
+    //    var courseAttendances: RealmList<ClassAttendance> = realmListOf()
+    var enrolledStudents: RealmList<ObjectId> = realmListOf()
+//    var enrolledStudents: RealmList<EnrolledStudent> = realmListOf()
+//    val userCourses: RealmResults<UserRole> by backlinks (UserRole::courses)
+    var totalNoOfClasses: Int = 0
 
     constructor(name:String,courseCode:String) : this() {
         this.name = name
         this.courseCode = courseCode
+        this.createdByInstructor = app.currentUser!!.id
+        this.totalNoOfClasses=0
     }
 }
+
+
 
 //fun RealmSyncRepository.insertCourse(course: Course) {
 //    try {

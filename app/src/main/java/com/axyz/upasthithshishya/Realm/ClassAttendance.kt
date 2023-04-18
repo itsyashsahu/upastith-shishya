@@ -3,10 +3,12 @@ package com.axyz.upasthithshishya.Realm
 import java.util.Date
 
 import android.util.Log
+import com.axyz.upasthithshishya.app
 import com.axyz.upasthithshishya.data.realmModule
 import io.realm.kotlin.ext.backlinks
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.mongodb.ext.profileAsBsonDocument
 import io.realm.kotlin.query.RealmResults
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
@@ -14,32 +16,42 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 import javax.inject.Singleton
 
-class StudentRecord : RealmObject {
-    @PrimaryKey
-    var _id: ObjectId = ObjectId()
-    var emailId: String =""
-    var isPresent: Boolean = false
-    var logStatus: String=""
-    var timeOfAttendance: String=""
-    val classAttendance: RealmResults<ClassAttendance> by backlinks (ClassAttendance::attendanceRecord)
-}
+//class InvitationRecord : RealmObject {
+//    @PrimaryKey
+//    var _id: ObjectId = ObjectId()
+//    var emailId: String =""
+//    var isPresent: Boolean = false
+//    var logStatus: String=""
+//    var timeOfAttendance: String=""
+//    val classAttendance: RealmResults<ClassAttendance> by backlinks (ClassAttendance::attendanceRecord)
+//}
+//class StudentRecord : RealmObject {
+//    @PrimaryKey
+//    var _id: ObjectId = ObjectId()
+////    var
+//    var emailId: String =""
+//    var isPresent: Boolean = false
+//    var logStatus: String=""
+//    var timeOfAttendance: String=""
+//    val classAttendance: RealmResults<ClassAttendance> by backlinks (ClassAttendance::attendanceRecord)
+//}
 
 //data class ClassAttendance(
 //    var date: Date,
 //    var attendanceRecord: MutableList<StudentRecord> = mutableListOf()
 //)
 
-class ClassAttendance : RealmObject {
-    @PrimaryKey
-    var _id: ObjectId = ObjectId()
-    var date: String = ""
-    var attendanceRecord: RealmList<StudentRecord> = realmListOf()
-    val courseAttendance: RealmResults<Course> by backlinks(Course::courseAttendances)
-}
+//class ClassAttendance : RealmObject {
+//    @PrimaryKey
+//    var _id: ObjectId = ObjectId()
+//    var date: String = ""
+//    var attendanceRecord: RealmList<StudentRecord> = realmListOf()
+//    val courseAttendance: RealmResults<Course> by backlinks(Course::courseAttendances)
+//}
 
 @Singleton
 class ClassAttendanceManager {
-    private val attendances = ClassAttendance()
+//    private val attendances = ClassAttendance()
     //    private val config = RealmConfiguration.Builder(schema = setOf(Course::class))
 //        .build()
 //    private val realm = Realm.open(config)
@@ -56,19 +68,74 @@ class ClassAttendanceManager {
 //            }
 //        }
 //    }
-    fun createAttendanceRecord(_id: ObjectId):ObjectId {
+//    fun createAttendanceRecord(_id: ObjectId):ObjectId {
+//        val realm = realmModule.realm
+//        var classAttendance = ClassAttendance()
+//        realm.writeBlocking {
+////            val objectId = ObjectId(_id.encodeToByteArray()) // or ObjectId("5f1f3c7e7c8d2d2a60e9b4f3")
+//            val course = this.query<Course>("_id == $0", _id ).first().find()
+//            classAttendance = ClassAttendance().apply {
+//                date = Date().toString()
+//            }
+//            course?.courseAttendances?.add(classAttendance)
+//        }
+//        Log.d("Course Created ::","courese ${classAttendance._id}")
+//        return classAttendance._id
+//    }
+    fun getAllStudentRecords(){
         val realm = realmModule.realm
-        var classAttendance = ClassAttendance()
+        var courses = realm.query<Course>().find()
+        Log.d("Courses ---  ::","$courses")
+//        var enrolledStudents = realm.query<ClassAttendance>().find()
+//        this.copyToRealm(course)
+//        val user = realm.query<UserRole>("user_id == $0",
+//            app.currentUser?.id?.let { ObjectId(it) }).first().find()
+
+    //            doesStudentExist = course?.enrolledStudents?.any { it.email == studentEmail } == true
+    //            if (doesStudentExist != true) {
+    //                studentToEnroll = EnrolledStudent().apply {
+    //                    name = studentName
+    //                    email = studentEmail
+    //                    date = Date().toString()
+    //                }
         realm.writeBlocking {
-//            val objectId = ObjectId(_id.encodeToByteArray()) // or ObjectId("5f1f3c7e7c8d2d2a60e9b4f3")
-            val course = this.query<Course>("_id == $0", _id ).first().find()
-            classAttendance = ClassAttendance().apply {
-                date = Date().toString()
+            val course = this.query<Course>("_id == $0", courses[0]._id ).first().find()
+            val studend_id = app.currentUser?.id
+            if (!studend_id.isNullOrBlank()) {
+                course?.enrolledStudents?.add(ObjectId(studend_id))
             }
-            course?.courseAttendances?.add(classAttendance)
         }
-        Log.d("Course Created ::","courese ${classAttendance._id}")
-        return classAttendance._id
+
+//        Log.d("user", "user :: ${user}")
+//        Log.d("class attendande ---  ::","$enrolledStudents")
+//        Log.d(" Users ---  ::","$users")
+//        app.currentUser.functions
+        Log.d("Current User ---  ::","${app.currentUser?.profileAsBsonDocument()}")
+    }
+
+    fun enrollStudent(_id: ObjectId){
+
+        val realm = realmModule.realm
+//        var studentToEnroll = EnrolledStudent()
+        var doesStudentExist = false
+        realm.writeBlocking {
+            val course = this.query<Course>("_id == $0", _id ).first().find()
+//            doesStudentExist = course?.enrolledStudents?.any { it.email == studentEmail } == true
+//            if (doesStudentExist != true) {
+//                studentToEnroll = EnrolledStudent().apply {
+//                    name = studentName
+//                    email = studentEmail
+//                    date = Date().toString()
+//                }
+            val studend_id = app.currentUser?.id
+            if(!studend_id.isNullOrBlank()){
+                course?.enrolledStudents?.add(ObjectId(studend_id))
+            }
+//            }
+        }
+        if(doesStudentExist){
+            Log.d("Error ::","Student Already Exits")
+        }
     }
 
 //    suspend fun addStudentRecord(_id:ObjectId, emailid: String, llogStatus:String) {
@@ -86,11 +153,11 @@ class ClassAttendanceManager {
 //        }
 //    }
 
-    suspend fun getClassAttendanceRecord(_id: ObjectId): ClassAttendance? {
-        val realm = realmModule.realm
-        var classAttendance=realm.query<ClassAttendance>("_id == $0",_id).first().find()
-        return classAttendance
-    }
+//    suspend fun getClassAttendanceRecord(_id: ObjectId): ClassAttendance? {
+//        val realm = realmModule.realm
+//        var classAttendance=realm.query<ClassAttendance>("_id == $0",_id).first().find()
+//        return classAttendance
+//    }
 
 
 //

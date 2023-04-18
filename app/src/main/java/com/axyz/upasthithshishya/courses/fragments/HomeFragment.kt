@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.Realm.Course
-import com.axyz.upasthithshishya.activity.ProfileActivity
 import com.axyz.upasthithshishya.courses.CourseInfo
 import com.axyz.upasthithshishya.courses.CourseListAdapter
 
@@ -40,8 +39,8 @@ class HomeFragment : Fragment() {
 //            }
 //        })
         view.findViewById<ImageView>(R.id.settingProfileImageView).setOnClickListener{
-            val intent = Intent(this@HomeFragment.requireContext(), ProfileActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this@HomeFragment.requireContext(), ProfileActivity::class.java)
+//            startActivity(intent)
         }
         return view
     }

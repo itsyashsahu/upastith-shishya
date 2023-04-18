@@ -1,4 +1,4 @@
-package com.axyz.upasthithshishya.courses.fragments
+package com.axyz.upasthithshishya.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,9 +13,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.axyz.upasthithshishya.activity.GiveAttendance
 import com.axyz.upasthithshishya.R
-import com.axyz.upasthithshishya.activity.ProfileActivity
+import com.axyz.upasthithshishya.activity.Profile
 
 class AttendanceFragment : Fragment() {
+
+
     private lateinit var courseDropDownButton: AutoCompleteTextView
     private val courseNames = mutableListOf<String>()
 
@@ -43,17 +45,17 @@ class AttendanceFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_attendance, container, false)
 
-        view.findViewById<ImageView>(R.id.attendanceFragmentProfile).setOnClickListener {
-            startActivity(Intent(requireContext(), ProfileActivity::class.java))
-        }
+//        view.findViewById<ImageView>(R.id.loginInAttendanceImageView).setOnClickListener {
+//            startActivity(Intent(requireContext(), Profile::class.java))
+//        }
 
         view.findViewById<Button>(R.id.giveAttendanceButton).setOnClickListener {
             val selectedCourse = courseDropDownButton.text.toString().trim()
-            if (selectedCourse.isNotEmpty() && courseNames.contains(selectedCourse)) {
+//            if (selectedCourse.isNotEmpty() && courseNames.contains(selectedCourse)) {
                 startActivity(Intent(requireContext(), GiveAttendance::class.java))
-            } else {
-                Toast.makeText(requireContext(), "Please select a course name from the dropdown", Toast.LENGTH_SHORT).show()
-            }
+//            } else {
+//                Toast.makeText(requireContext(), "Please select a course name from the dropdown", Toast.LENGTH_SHORT).show()
+//            }
         }
 
         return view
