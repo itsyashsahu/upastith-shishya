@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
 //                startActivity(intent)
 //            }
 //        })
-        view.findViewById<ImageView>(R.id.loginImageView).setOnClickListener{
+        view.findViewById<ImageView>(R.id.settingProfileImageView).setOnClickListener{
             val intent = Intent(this@HomeFragment.requireContext(), ProfileActivity::class.java)
             startActivity(intent)
         }

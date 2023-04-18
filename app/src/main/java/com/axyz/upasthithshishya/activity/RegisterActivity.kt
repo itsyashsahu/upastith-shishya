@@ -22,31 +22,37 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
+    private lateinit var rollNoEditText: EditText
+    private lateinit var batchEditText: EditText
+//    private lateinit var deaprtmentDropDown: EditText
 //    private lateinit var descriptionEditText: EditText
     private lateinit var signupViewModel: SignupViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        nameEditText = findViewById(R.id.input_username)
+        nameEditText = findViewById(R.id.input_name)
         emailEditText = findViewById(R.id.input_email)
         passwordEditText = findViewById(R.id.input_password)
+        rollNoEditText = findViewById(R.id.input_rollNo)
+        batchEditText = findViewById(R.id.input_batch)
         signupViewModel = ViewModelProvider(this)[SignupViewModel::class.java]
 
-        val alreadyhaveaccount = findViewById<TextView>(R.id.alreadyhaveaccount)
-        alreadyhaveaccount.setOnClickListener {
+        val signIn = findViewById<TextView>(R.id.text_signIn)
+        signIn.setOnClickListener {
             navigateToLoginActivity()
         }
 
-        val click_register = findViewById<Button>(R.id.click_register)
-        click_register.setOnClickListener {
+        val btn_create = findViewById<Button>(R.id.btn_create)
+        btn_create.setOnClickListener {
             handleSignupFormSubmission()
         }
 
         nameEditText.setText("Yash")
         emailEditText.setText("ys@gmail.com")
         passwordEditText.setText("12345A@ha")
-
+        rollNoEditText.setText("20BCS246")
+        batchEditText.setText("2020")
         subscribeToObservers()
 
         if(CheckLogin(this)){
