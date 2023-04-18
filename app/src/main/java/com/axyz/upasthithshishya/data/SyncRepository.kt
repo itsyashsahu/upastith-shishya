@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 //import com.axyz.upasthithshishya.Realm.ClassAttendance
 import com.axyz.upasthithshishya.Realm.Course
+import com.axyz.upasthithshishya.Realm.InvitationRecord
+import com.axyz.upasthithshishya.Realm.StudentRecord
 //import com.axyz.upasthithshishya.Realm.StudentRecord
 import com.axyz.upasthithshishya.app
 import dagger.Module
@@ -30,6 +32,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.internal.wait
+import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
@@ -104,13 +107,16 @@ object realmModule{
         Log.d("INIT REALM ----- ","----------------------- YES ---------------- $currentUser")
         val config: SyncConfiguration
 //        config = SyncConfiguration.Builder(currentUser, setOf(Course::class, ClassAttendance::class,StudentRecord::class))
-        config = SyncConfiguration.Builder(currentUser, setOf(Course::class))
+        config = SyncConfiguration.Builder(currentUser, setOf(Course::class,StudentRecord::class,InvitationRecord::class))
             .initialSubscriptions { realm ->
                 // Subscribe to the active subscriptionType - first time defaults to MINE
 //                if(isJustUp){
                 add(realm.query<Course>(),"Course")
+                add(realm.query<Course>("$0 IN enrolledStudent", currentUser.id),"Course1")
+//                add(realm.query<Course>("enrolledStudents ANY== $0", currentUser.id),"Course")
+//                add(realm.objects)
 //                add(realm.query<ClassAttendance>(),"ClassAttendance")
-//                add(realm.query<StudentRecord>(), "StudentRecord")
+                add(realm.query<StudentRecord>(), "StudentRecord")
 //                add(realm.query<UserRole>(), "UserRole")
 //                    isJustUp=false
 //                }

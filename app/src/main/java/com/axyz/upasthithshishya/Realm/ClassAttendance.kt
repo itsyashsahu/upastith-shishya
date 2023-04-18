@@ -16,25 +16,23 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 import javax.inject.Singleton
 
-//class InvitationRecord : RealmObject {
-//    @PrimaryKey
-//    var _id: ObjectId = ObjectId()
-//    var emailId: String =""
-//    var isPresent: Boolean = false
-//    var logStatus: String=""
-//    var timeOfAttendance: String=""
-//    val classAttendance: RealmResults<ClassAttendance> by backlinks (ClassAttendance::attendanceRecord)
-//}
-//class StudentRecord : RealmObject {
-//    @PrimaryKey
-//    var _id: ObjectId = ObjectId()
-////    var
-//    var emailId: String =""
-//    var isPresent: Boolean = false
-//    var logStatus: String=""
-//    var timeOfAttendance: String=""
-//    val classAttendance: RealmResults<ClassAttendance> by backlinks (ClassAttendance::attendanceRecord)
-//}
+class InvitationRecord : RealmObject {
+    @PrimaryKey
+    var _id: ObjectId = ObjectId()
+    var emailId: String =""
+    var status: String=""
+    var timeOfInviting: String=""
+}
+class StudentRecord : RealmObject {
+    @PrimaryKey
+    var _id: ObjectId = ObjectId()
+    var student_id: ObjectId = ObjectId()
+    var emailId: String =""
+    var classNumber:Int = 0
+    var isPresent: Boolean = false
+    var timeOfAttendance: String=""
+}
+
 
 //data class ClassAttendance(
 //    var date: Date,
@@ -84,8 +82,24 @@ class ClassAttendanceManager {
 //    }
     fun getAllStudentRecords(){
         val realm = realmModule.realm
-        var courses = realm.query<Course>().find()
-        Log.d("Courses ---  ::","$courses")
+        val user_id = app.currentUser?.id
+        if(!user_id.isNullOrBlank()){
+            var courses = realm.query<Course>("$0 IN enrolledStudents", ObjectId(user_id)).find()
+    //        var courses = realm.query<Course>().find()
+            Log.d("YRR -- "," - ${courses.count()}")
+            courses.forEach{course ->
+                Log.d("milee hau bhai ---  ::", "${course.name}")
+            }
+            realm.writeBlocking {
+                val course = this.query<Course>("_id == $0", courses[0]._id ).first().find()
+                val studend_id = app.currentUser?.id
+                if (!studend_id.isNullOrBlank()) {
+                    course?.enrolledStudent?.add(studend_id)
+                }
+            }
+
+        }
+
 //        var enrolledStudents = realm.query<ClassAttendance>().find()
 //        this.copyToRealm(course)
 //        val user = realm.query<UserRole>("user_id == $0",
@@ -98,13 +112,7 @@ class ClassAttendanceManager {
     //                    email = studentEmail
     //                    date = Date().toString()
     //                }
-        realm.writeBlocking {
-            val course = this.query<Course>("_id == $0", courses[0]._id ).first().find()
-            val studend_id = app.currentUser?.id
-            if (!studend_id.isNullOrBlank()) {
-                course?.enrolledStudents?.add(ObjectId(studend_id))
-            }
-        }
+
 
 //        Log.d("user", "user :: ${user}")
 //        Log.d("class attendande ---  ::","$enrolledStudents")

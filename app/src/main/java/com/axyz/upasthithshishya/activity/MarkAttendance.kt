@@ -24,10 +24,11 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.mongodb.kbson.ObjectId
 import java.util.*
 
 @Serializable
-data class CharacteristicDataClass(val attendance: Boolean)
+data class CharacteristicDataClass(val attendance: Boolean, val student_id:ObjectId,var courseId:ObjectId,var email:String)
 
 @Serializable
 data class CharacteristicDataBroadcast(val RollNo: String?)

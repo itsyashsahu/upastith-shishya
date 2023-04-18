@@ -25,6 +25,7 @@ class Course() : RealmObject {
     var createdByInstructor: String = ""
     //    var courseAttendances: RealmList<ClassAttendance> = realmListOf()
     var enrolledStudents: RealmList<ObjectId> = realmListOf()
+    var enrolledStudent: RealmList<String> = realmListOf()
 //    var enrolledStudents: RealmList<EnrolledStudent> = realmListOf()
 //    val userCourses: RealmResults<UserRole> by backlinks (UserRole::courses)
     var totalNoOfClasses: Int = 0
