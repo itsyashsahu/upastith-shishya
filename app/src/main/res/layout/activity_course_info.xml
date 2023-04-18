@@ -24,7 +24,7 @@
             android:src="@drawable/profilecircle" />
 
         <TextView
-            android:id="@+id/coursecode"
+            android:id="@+id/courseCodeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -38,10 +38,10 @@
             />
 
         <TextView
-            android:id="@+id/coursename"
+            android:id="@+id/courseNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/coursecode"
+            android:layout_below="@id/courseCodeTextView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:text="Software Defined Networking"
@@ -55,29 +55,26 @@
             android:id="@+id/courseDescDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/coursename"
-            android:layout_marginTop="5dp">
+            android:layout_below="@id/courseNameTextView"
+            android:layout_marginTop="10dp">
 
             <TextView
-                android:id="@+id/text_credits"
+                android:id="@+id/creditsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_margin="5dp"
-                android:padding="2dp"
                 android:text="Credits - 3"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
+
             <TextView
-                android:id="@+id/text_department"
+                android:id="@+id/departmentTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_toStartOf="@+id/text_sem"
-                android:layout_toEndOf="@+id/text_credits"
-                android:padding="2dp"
+                android:layout_toStartOf="@+id/semesterTextView"
+                android:layout_toEndOf="@+id/creditsTextView"
                 android:text="Department - CSE"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -85,11 +82,11 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/text_sem"
+                android:id="@+id/semesterTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="5dp"
+
                 android:padding="2dp"
                 android:text="Semester - 6"
                 android:textAllCaps="false"
@@ -97,10 +94,10 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/courseDescription"
+                android:id="@+id/descriptionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text_sem"
+                android:layout_below="@id/semesterTextView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:padding="2dp"
