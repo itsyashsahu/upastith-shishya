@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToUpdatePasswordActivity() {
-        startActivity(Intent(applicationContext, UpdatePasswordActivity::class.java))
+        startActivity(Intent(applicationContext, ForgotPasswordActivity::class.java))
     }
 
     private fun navigateToRegisterActivity() {
