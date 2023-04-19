@@ -53,6 +53,7 @@
         android:drawablePadding="10dp"
         android:hint="New Password"
         android:ems="10"
+        android:textColor="@color/custom_color_bg"
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="@id/text_instructions"
@@ -69,6 +70,7 @@
         android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/lock_icon"
         android:drawablePadding="10dp"
+        android:textColor="@color/custom_color_bg"
         android:hint="Confirm Password"
         android:ems="10"
         android:inputType="textEmailAddress"
@@ -88,6 +90,7 @@
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:textAllCaps="false"
+
         android:text="Change Password"
         android:textSize="22sp"
         android:textColor="@color/white"

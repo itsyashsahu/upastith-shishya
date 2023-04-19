@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.axyz.upasthithshishya.R
+import com.axyz.upasthithshishya.databinding.ActivityMainBinding
 import com.axyz.upasthithshishya.other.OnboardingItem
 import com.axyz.upasthithshishya.other.OnboardingItemsAdapter
 import com.google.android.material.button.MaterialButton
@@ -18,10 +19,13 @@ import com.google.android.material.button.MaterialButton
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var onboardingItemsAdapter: OnboardingItemsAdapter
+    private lateinit var binding: ActivityMainBinding
     private lateinit var indicatorsContainer: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         setOnboardingItems()
         setupIndicators()
         setCurrentIndicator(0)
@@ -31,19 +35,22 @@ class OnboardingActivity : AppCompatActivity() {
         onboardingItemsAdapter = OnboardingItemsAdapter(
             listOf(
                 OnboardingItem(
-                    onboardingImage = R.drawable.task,
-                    title = "Manage your Task",
-                    description = "Organize all your to do's and projects. Color tag them to set priorities and categories."
+//                    onBgImage = R.drawable.onbg1,
+                    onboardingImage = R.drawable.onclassroom,
+                    title = "Easy Attendance Marking System",
+                    description = "Mark your attendance via bluetooth within just seconds"
                 ),
                 OnboardingItem(
-                    onboardingImage = R.drawable.time,
-                    title = "Work on Time",
-                    description = "When you're overwhelmed by the amount of work you have on your plate, stop and rethink."
+//                    onBgImage = R.drawable.onbg2,
+                    onboardingImage = R.drawable.onreport,
+                    title = "Track Your Attendance",
+                    description = "Keep track of your attendance with a trouble-free data system"
                 ),
                 OnboardingItem(
-                    onboardingImage = R.drawable.reminder,
-                    title = "Get Reminder on Time",
-                    description = "When you encounter a small task that takes less than 5 minutes to complete."
+//                    onBgImage = R.drawable.onbg3,
+                    onboardingImage = R.drawable.onschedule,
+                    title = "Get Your Lectures' Schedule",
+                    description = "Get Schedule of all your lectures effortlessly"
                 )
 
             )
@@ -70,9 +77,9 @@ class OnboardingActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textSkip).setOnClickListener {
             navigateToHomeActivity()
         }
-        findViewById<MaterialButton>(R.id.btn_get_start).setOnClickListener {
-            navigateToHomeActivity()
-        }
+//        findViewById<MaterialButton>(R.id.btn_get_start).setOnClickListener {
+//            navigateToHomeActivity()
+//        }
     }
     private fun navigateToHomeActivity(){
         startActivity(Intent(applicationContext, EntryActivity::class.java))
