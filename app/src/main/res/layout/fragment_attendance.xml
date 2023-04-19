@@ -264,20 +264,23 @@
                 android:textColorHint="@color/custom_color_bg"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/giveAttendanceButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:layout_margin="30dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/rectangular_input_bg"
             android:backgroundTint="@color/custom_color_bg"
             android:text="Give Attendance"
-            android:textColor="@color/white"
             android:textAllCaps="false"
-            android:textSize="22sp"
-            />
+            android:textColor="@color/white"
+            android:textSize="22sp" />
 
     </RelativeLayout>
 

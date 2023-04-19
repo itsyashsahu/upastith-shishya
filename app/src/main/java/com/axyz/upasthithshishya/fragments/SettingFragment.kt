@@ -16,10 +16,10 @@ class SettingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        CoroutineScope(Dispatchers.Main).launch {
-            ClassAttendanceManager().getAllStudentRecords()
-//            ClassAttendanceManager().enrollStudent()
-        }
+//        CoroutineScope(Dispatchers.Main).launch {
+//            ClassAttendanceManager().getAllStudentRecords()
+////            ClassAttendanceManager().enrollStudent()
+//        }
     }
 
     override fun onCreateView(
