@@ -91,6 +91,20 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.VerifyPassChangeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.LoginActivity"
             android:exported="false">
             <meta-data
