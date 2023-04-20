@@ -9,18 +9,29 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.AppCompatButton
 import com.axyz.upasthithshishya.*
+import com.axyz.upasthithshishya.databinding.ActivityGiveAttendanceBinding
+import com.axyz.upasthithshishya.databinding.DialogEnterPinBinding
 import com.axyz.upasthithshishya.other.CameraPreview
 
 class GiveAttendance : AppCompatActivity() {
+    private lateinit var binding: ActivityGiveAttendanceBinding
+    private lateinit var sendPinButton: AppCompatButton
     private lateinit var cameraPreview: CameraPreview
     private lateinit var cameraPreviewContainer: FrameLayout
     private lateinit var turnOnCameraButton: Button
     private lateinit var startAttendanceButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityGiveAttendanceBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_give_attendance)
+        setContentView(binding.root)
+        sendPinButton = binding.giveAttendanceSendPinButton
+        sendPinButton.setOnClickListener{
+            val intent = Intent(this,MarkAttendence::class.java)
+            startActivity(intent)
+        }
 //        startAttendanceButton = findViewById(R.id.startAttendanceButton)
 //        cameraPreviewContainer = findViewById(R.id.cameraPreviewContainer)
 //        turnOnCameraButton = findViewById(R.id.turnOnCameraButton)
@@ -78,25 +89,26 @@ class GiveAttendance : AppCompatActivity() {
 //        }
 //
 //        enterPinDialog.show()
-//    }
+        }
 //
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        PermissionUtils.onRequestPermissionsResult(this, permissions, grantResults)
-//    }
 //
-//    override fun onResume() {
-//        super.onResume()
-//        Log.d("RESUME", "On Resume Called --- $permissionDialogShown")
-//        if (!PermissionUtils.hasPermissions(this) && permissionDialogShown < 1) {
-//            PermissionUtils.requestPermissions(this)
-//            Log.d("Permissions -> ", "All Not Permission Given -> ")
-//        } else {
-//            Log.d("Permissions -> ", "All Permission Given")
-//        }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        PermissionUtils.onRequestPermissionsResult(this, permissions, grantResults)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("RESUME", "On Resume Called --- $permissionDialogShown")
+        if (!PermissionUtils.hasPermissions(this) && permissionDialogShown < 1) {
+            PermissionUtils.requestPermissions(this)
+            Log.d("Permissions -> ", "All Not Permission Given -> ")
+        } else {
+            Log.d("Permissions -> ", "All Permission Given")
+        }
     }
 }

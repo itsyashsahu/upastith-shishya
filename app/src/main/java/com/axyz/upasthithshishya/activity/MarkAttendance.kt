@@ -19,7 +19,9 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.axyz.upasthithshishya.R
+import com.axyz.upasthithshishya.app
 import com.axyz.upasthithshishya.courses.CourseInfo
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -28,10 +30,10 @@ import org.mongodb.kbson.ObjectId
 import java.util.*
 
 @Serializable
-data class CharacteristicDataClass(val attendance: Boolean, val student_id:ObjectId,var courseId:ObjectId,var email:String)
+data class CharacteristicDataClass(val attendance: Boolean)
 
 @Serializable
-data class CharacteristicDataBroadcast(val RollNo: String?)
+data class CharacteristicDataBroadcast(val e: String?)
 
 
 val CustomCharUuid = "ff82240a-27c1-4661-a15a-be5a22a17256"
@@ -42,7 +44,7 @@ class MarkAttendence : AppCompatActivity() {
     private lateinit var bluetoothGattServer: BluetoothGattServer
 
     // Data Class for Characteristics Object That is written & Read
-    lateinit var RollNo: String
+    lateinit var email: String
     lateinit var dialog: Dialog
     //    = intent.getStringExtra("Roll_no")
 
@@ -50,7 +52,7 @@ class MarkAttendence : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        email = app.currentUser?.customDataAsBsonDocument()?.getValue("email")?.asString()?.value.toString()
         // Create a Dialog object and set its content view.
         dialog = Dialog(this)
         dialog.setContentView(R.layout.activity_mark_attendance)
@@ -75,7 +77,6 @@ class MarkAttendence : AppCompatActivity() {
 
         // Show the dialog.
         dialog.show()
-        RollNo = intent.getStringExtra("RollNo").toString()
 
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
             ?: // Device does not support Bluetooth
@@ -207,7 +208,8 @@ class MarkAttendence : AppCompatActivity() {
                         // End this Activity
                         dialog.cancel()
                         finish()
-                        startActivity(Intent(this@MarkAttendence,CourseInfo::class.java))
+                        val intent = Intent(this@MarkAttendence,CourseInfo::class.java)
+                        startActivity(intent)
                     }
                 }
             })
@@ -236,7 +238,7 @@ class MarkAttendence : AppCompatActivity() {
 
 
         // Serializing objects
-        val characteristicData = CharacteristicDataBroadcast(RollNo)
+        val characteristicData = CharacteristicDataBroadcast(email.substringBefore("@"))
         val dataJsonString = Json.encodeToString(characteristicData)
         // Write data to the characteristic
         characteristic.value = dataJsonString.toByteArray(Charsets.UTF_8)

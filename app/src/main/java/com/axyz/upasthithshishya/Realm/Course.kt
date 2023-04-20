@@ -3,6 +3,7 @@ package com.axyz.upasthithshishya.Realm
 import android.util.Log
 import com.axyz.upasthithshishya.app
 import com.axyz.upasthithshishya.data.realmModule
+import com.axyz.upasthithshishya.data.realmModule.realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.query.RealmResults
@@ -290,13 +291,13 @@ class CourseRepository (){
 //        }
 //    }
 //
-//    fun getCourse(id: String): Course? {
-//        return try {
-//            realm.query<Course>("id == $0", id).first().find()
-//        } catch (e: Exception) {
-//            Log.d("Database Error :: ", "Failed to Get Course - $e")
-//            null
-//        }
-//    }
+    fun getCourse(id: ObjectId): Course? {
+        return try {
+            realm.query<Course>("_id == $0", id).first().find()
+        } catch (e: Exception) {
+            Log.d("Database Error :: ", "Failed to Get Course - $e")
+            null
+        }
+    }
 //
 }

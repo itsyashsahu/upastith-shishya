@@ -54,12 +54,6 @@ class RegisterActivity : AppCompatActivity() {
         rollNoEditText.setText("20BCS246")
         batchEditText.setText("2020")
         subscribeToObservers()
-
-        if(CheckLogin(this)){
-            Toast.makeText(this,"User Already Signed In",Toast.LENGTH_SHORT).show()
-            finish()
-        }
-
     }
 
 

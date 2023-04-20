@@ -45,11 +45,6 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText.setText("12345A@ha")
 
         subscribeToObservers()
-
-        if(CheckLogin(this)){
-            Toast.makeText(this,"User Already Signed In",Toast.LENGTH_SHORT).show()
-            finish()
-        }
     }
 
     private fun navigateToUpdatePasswordActivity() {

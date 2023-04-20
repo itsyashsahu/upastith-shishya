@@ -50,7 +50,6 @@ class AttendanceFragment : Fragment() {
 //        }
 
         view.findViewById<Button>(R.id.giveAttendanceButton).setOnClickListener {
-            val selectedCourse = courseDropDownButton.text.toString().trim()
 //            if (selectedCourse.isNotEmpty() && courseNames.contains(selectedCourse)) {
                 startActivity(Intent(requireContext(), GiveAttendance::class.java))
 //            } else {
