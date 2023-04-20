@@ -27,8 +27,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 //    var courseManager = CourseManager()
 //    var courseList = courseManager.getAllCourse()
-    var courseList : RealmList<Course> = realmListOf<Course>()
-    val courseListAdapter = CourseListAdapter(courseList)
+    var courseList : RealmList<Course> = realmListOf()
+    private lateinit var courseListAdapter: CourseListAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
@@ -50,8 +50,7 @@ class HomeFragment : Fragment() {
 //                startActivity(intent)
 //            }
 //        })
-        recyclerView.setHasFixedSize(true)
-
+    courseListAdapter = CourseListAdapter(courseList)
     recyclerView.layoutManager = LinearLayoutManager(activity)
     recyclerView.adapter = courseListAdapter
 
@@ -120,6 +119,7 @@ class HomeFragment : Fragment() {
                         "Course hai course hai ----> ${CourseRepository().getAllCourse()}"
                     )
 //                 Do something when the Realm data is synced
+                    courseListAdapter?.notifyDataSetChanged()
                 } else {
                     // Do something when the Realm data is not synced yet
                     Log.d("Sync Update :: ", "------- Sync NOT-COMPLETED ------- ")

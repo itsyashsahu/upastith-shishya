@@ -138,7 +138,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/takeAttendanceStartAttendanceButton"
+        android:id="@+id/giveAttendanceSendPinButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -161,9 +161,9 @@
         android:text="Fetching Device State"
         android:textColor="@color/custom_color_bg"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@id/takeAttendanceStartAttendanceButton"
-        app:layout_constraintStart_toStartOf="@id/takeAttendanceStartAttendanceButton"
-        app:layout_constraintTop_toBottomOf="@+id/takeAttendanceStartAttendanceButton"
+        app:layout_constraintEnd_toEndOf="@id/giveAttendanceSendPinButton"
+        app:layout_constraintStart_toStartOf="@id/giveAttendanceSendPinButton"
+        app:layout_constraintTop_toBottomOf="@+id/giveAttendanceSendPinButton"
         />
     <TextView
         android:id="@+id/unsupportiveState"
