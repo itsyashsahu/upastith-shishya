@@ -9,7 +9,10 @@ import androidx.cardview.widget.CardView
 import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.Realm.Course
 import com.axyz.upasthithshishya.Realm.CourseRepository
+import com.axyz.upasthithshishya.Realm.StudentRecord
+import com.axyz.upasthithshishya.data.realmModule.realm
 import com.axyz.upasthithshishya.databinding.ActivityCourseInfoBinding
+import io.realm.kotlin.ext.query
 import org.mongodb.kbson.ObjectId
 
 class CourseInfo : AppCompatActivity() {
@@ -39,5 +42,11 @@ class CourseInfo : AppCompatActivity() {
         studentAttendance = binding.courseInfoStudentAttendanceCalendar
 //        course = CourseRepository().getCourse(courseId)!!
 //        Log.d("Course","Course Details -------> ${course.name}")
+        val st = realm.query<StudentRecord>().find()
+        st.forEach { student ->
+            Log.d("Course","Student Details -------> ${student.studentEmailId}")
+        }
+        Log.d("Course","Student Details -------> ${st}")
+
     }
 }

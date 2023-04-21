@@ -16,6 +16,7 @@ import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import io.realm.kotlin.mongodb.subscriptions
 import io.realm.kotlin.mongodb.sync.SubscriptionSetState
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
@@ -117,6 +118,18 @@ object realmModule{
 //                add(realm.objects)
 //                add(realm.query<ClassAttendance>(),"ClassAttendance")
                 add(realm.query<StudentRecord>(), "StudentRecord")
+                val studentEmail = app.currentUser?.customDataAsBsonDocument()?.getValue("email")
+                    ?.asString()?.value.toString()
+                add(
+                    realm.query<InvitationRecord>("studentEmailId == $0", studentEmail),
+                    "InvitationRecord"
+                )
+                add(
+                    realm.query<StudentRecord>("studentEmailId == $0", studentEmail),
+                    "PersonalStudentRecord"
+                )
+                add(realm.query<StudentRecord>(), "StudentRecordALL")
+                add(realm.query<InvitationRecord>(), "InvitationRecordALL")
 //                add(realm.query<UserRole>(), "UserRole")
 //                    isJustUp=false
 //                }

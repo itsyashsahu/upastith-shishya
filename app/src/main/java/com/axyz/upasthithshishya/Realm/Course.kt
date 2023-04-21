@@ -107,7 +107,6 @@ class CourseRepository (){
     fun insertCourse(course: Course) {
         try {
             val realm = realmModule.realm
-//            realm.subscriptions.waitForSynchronization()
             realm.writeBlocking {
                 this.copyToRealm(course)
             }

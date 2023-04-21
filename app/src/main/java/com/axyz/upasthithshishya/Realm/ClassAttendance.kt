@@ -16,23 +16,27 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 import javax.inject.Singleton
 
-class InvitationRecord : RealmObject {
+class InvitationRecord() : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
-    var emailId: String =""
-    var status: String=""
+    var studentEmailId: String =""
+    var courseId:String = ""
+    var courseName: String=""
+    var invitedByTeacherEmail: String=""
+    var status: String="sent"
     var timeOfInviting: String=""
 }
+
 class StudentRecord : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
-    var student_id: ObjectId = ObjectId()
-    var emailId: String =""
+    var markedByTeacherId: String = ""
+    var courseId: String=""
+    var studentEmailId: String =""
     var classNumber:Int = 0
     var isPresent: Boolean = false
     var timeOfAttendance: String=""
 }
-
 
 //data class ClassAttendance(
 //    var date: Date,
