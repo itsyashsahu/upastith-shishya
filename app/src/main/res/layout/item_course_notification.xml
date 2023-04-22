@@ -1,0 +1,56 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    android:backgroundTint="@color/custom_color_bg_shadow"
+    app:cardCornerRadius="10dp"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/custom_color_bg_shadow">
+
+        <TextView
+            android:id="@+id/courseNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Abhishek Verma invites you to the course SDN?"
+            android:textAlignment="center"
+            android:textColor="@color/custom_color_bg"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acceptCourseInvitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/circled_button"
+                android:backgroundTint="@color/custom_color_bg"
+                android:text="Accept"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/rejectCourseInvitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/circled_button"
+                android:backgroundTint="@color/Res"
+                android:text="Reject"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
