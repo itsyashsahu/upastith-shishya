@@ -23,8 +23,22 @@
             android:layout_alignParentTop="true"
             android:src="@drawable/upastith_logo" />
 
+        <ImageView
+            android:id="@+id/appNotificaitons"
+            android:layout_width="30dp"
+            android:layout_height="0dp"
+            android:layout_alignTop="@+id/homeProfileImageView"
+            android:layout_alignBottom="@+id/homeProfileImageView"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="14dp"
+            android:layout_toStartOf="@+id/homeProfileImageView"
+            android:background="@drawable/ic_notification"
+            android:backgroundTint="@color/white"
+            android:onClick="openDialogBox" />
+
+
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settingProfileImageView"
+            android:id="@+id/homeProfileImageView"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/upastithLogoImageView"
@@ -95,6 +109,8 @@
             android:backgroundTint="@color/white"
             android:isScrollContainer="true"
             tools:listitem="@layout/item_courses" />
+
+
     </RelativeLayout>
 
 
