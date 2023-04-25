@@ -98,10 +98,13 @@ class HomeFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             invitations= realmModule.realm.query<InvitationRecord>().find()
             invitations.forEach(){
-                val message = "${it.invitedByTeacherEmail} invites you to the course ${it.courseName}?"
-                notificationMessages.add(message)
-                val notification = createNotificationView(message,it)
-                notificationListLinearLayout.addView(notification)
+                if (it.status == "sent")
+                {
+                    val message = "${it.invitedByTeacherEmail} invites you to the course ${it.courseName}?"
+                    notificationMessages.add(message)
+                    val notification = createNotificationView(message,it)
+                    notificationListLinearLayout.addView(notification)
+                }
             }
         }
         popupWindow.showAsDropDown(view)

@@ -251,18 +251,17 @@
             <AutoCompleteTextView
                 android:id="@+id/courseDropDownView"
                 android:layout_width="match_parent"
-                android:background="@drawable/drop_down_bg"
                 android:layout_height="wrap_content"
                 android:hint="Select Course"
                 android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck"
                 android:inputType="none"
                 android:maxLines="10"
                 android:textColor="@color/custom_color_bg"
-                android:scrollbarAlwaysDrawHorizontalTrack="true"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:textColorHint="@color/custom_color_bg"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:background="@drawable/drop_down_bg"
+                android:dropDownHeight="300dp" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
