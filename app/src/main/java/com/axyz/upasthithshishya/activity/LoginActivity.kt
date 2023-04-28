@@ -1,17 +1,17 @@
 package com.axyz.upasthithshishya.activity
 
+import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log.d
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.axyz.upasthithshishya.*
+import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.apidata.LoginRequest
-import com.axyz.upasthithshishya.other.CheckLogin
 import com.axyz.upasthithshishya.other.EventObserver
 import com.axyz.upasthithshishya.viewModels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginViewModel: LoginViewModel
+    private var loadingDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,30 +103,35 @@ class LoginActivity : AppCompatActivity() {
 
     private fun subscribeToObservers() {
         loginViewModel.signupStatus.observe(this, EventObserver(
-            onError = {
-//                binding.email.isVisible = false
-//                binding.error.isVisible = true
-                d("LoginActivity", "Error: $it")
+            onError = { error ->
+                hideLoading()
+                Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
             },
             onLoading = {
-//                binding.loginTitle.isVisible = false
-//                binding.loginButton.isVisible = false
-//                binding.email.isVisible = false
-//                binding.password.isVisible = false
-//                binding.progressBar2.isVisible = true
-                d("LoginActivity", "Loading")
+                showLoading()
             }
         ) { user ->
-//            binding.loginTitle.isVisible = true
-//            binding.loginButton.isVisible = true
-//            binding.email.isVisible = false
-//            binding.password.isVisible = false
-//            binding.progressBar2.isVisible = false
-            d("LoginActivity", "Success: $user")
+            hideLoading()
+            Toast.makeText(this, "User has Signed in", Toast.LENGTH_SHORT).show()
             Intent(this, MainActivity::class.java).also {
                 startActivity(it)
-//                finish()
+                finish()
             }
         })
+    }
+
+    private fun showLoading() {
+        // Create a new dialog with the loading_screen layout
+        loadingDialog = Dialog(this)
+        loadingDialog?.setContentView(R.layout.loading_screen)
+        loadingDialog?.setCancelable(false)
+
+        // Show the dialog
+        loadingDialog?.show()
+    }
+    private fun hideLoading() {
+        // Dismiss the dialog if it is showing
+        loadingDialog?.dismiss()
+        loadingDialog = null
     }
 }

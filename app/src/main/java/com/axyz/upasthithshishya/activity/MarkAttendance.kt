@@ -10,7 +10,6 @@ import android.bluetooth.le.AdvertiseSettings
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.nfc.Tag
 import android.os.*
 import android.util.Log
 import android.view.View
@@ -26,7 +25,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.mongodb.kbson.ObjectId
 import java.util.*
 
 @Serializable

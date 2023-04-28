@@ -1,52 +1,65 @@
 package com.axyz.upasthithshishya.fragments
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.Fragment
 import com.axyz.upasthithshishya.R
-import com.axyz.upasthithshishya.Realm.ClassAttendanceManager
-import com.axyz.upasthithshishya.Realm.InvitationRecord
+import com.axyz.upasthithshishya.activity.LoginActivity
 import com.axyz.upasthithshishya.app
-import com.axyz.upasthithshishya.data.realmModule
-import io.realm.kotlin.ext.query
-import io.realm.kotlin.mongodb.ext.call
-import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.mongodb.kbson.BsonBoolean
-import org.mongodb.kbson.ObjectId
+import com.axyz.upasthithshishya.data.realmModule.realm
+import kotlinx.coroutines.runBlocking
 
 class SettingFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        CoroutineScope(Dispatchers.Main).launch {
-//            ClassAttendanceManager().getAllStudentRecords()
-//            ClassAttendanceManager().enrollStudent()
-            var invitations  = realmModule.realm.query<InvitationRecord>().find()
-            Log.d("Invitations ::","${invitations}")
-//            if(invitations.size > 0){
-//                val studentEmail = app.currentUser?.customDataAsBsonDocument()?.getValue("email")
-//                    ?.asString()?.value.toString()
-//                val functionResponse = app.currentUser?.functions
-//                    ?.call<BsonBoolean>("AcceptInvitation",invitations[1]._id,studentEmail,
-//                        invitations[0].courseId.let { ObjectId(it) }, app.currentUser!!.id.toString())
-//                Log.d("user", "user usha function :: ${functionResponse}")
-//            }
-
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_setting, container, false)
+        val signout_Btn = view?.findViewById<AppCompatButton>(R.id.settingsSignOut)
+        signout_Btn?.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+            dialogBuilder.setMessage("Are You Sure?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, _ ->
+                    val progressBar = view?.findViewById<ProgressBar>(R.id.progress_bar)
+                    progressBar?.visibility = View.VISIBLE
+                    progressBar?.bringToFront()
+                    runBlocking{
+                        realm.close()
+                        app.currentUser?.logOut()
+                        Log.d("User Logged Out", "User Logged Out")
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                    }
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.cancel()
+                }
+            val alert = dialogBuilder.create()
+            alert.setTitle("Logout")
+
+            // Set the "Yes" button color to green
+            alert.setOnShowListener {
+                alert.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(resources.getColor(R.color.custom_color_bg))
+            }
+
+            // Set the "No" button color to red
+            alert.setOnShowListener {
+                alert.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(resources.getColor(R.color.Res))
+            }
+
+            alert.show()
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+        return view
     }
 }

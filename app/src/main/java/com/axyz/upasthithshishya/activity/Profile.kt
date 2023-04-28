@@ -1,7 +1,7 @@
 package com.axyz.upasthithshishya.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.axyz.upasthithshishya.R
 
 class Profile : AppCompatActivity() {
