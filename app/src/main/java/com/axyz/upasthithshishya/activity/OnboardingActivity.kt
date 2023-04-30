@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.other.OnboardingItem
 import com.axyz.upasthithshishya.other.OnboardingItemsAdapter
-import com.google.android.material.button.MaterialButton
 
 class OnboardingActivity : AppCompatActivity() {
 

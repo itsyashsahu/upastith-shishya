@@ -1,20 +1,16 @@
 package com.axyz.upasthithshishya.fragments
 
-import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
-import androidx.appcompat.widget.AppCompatButton
-import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.axyz.upasthithshishya.R
@@ -98,10 +94,13 @@ class HomeFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             invitations= realmModule.realm.query<InvitationRecord>().find()
             invitations.forEach(){
-                val message = "${it.invitedByTeacherEmail} invites you to the course ${it.courseName}?"
-                notificationMessages.add(message)
-                val notification = createNotificationView(message,it)
-                notificationListLinearLayout.addView(notification)
+                if (it.status == "sent")
+                {
+                    val message = "${it.invitedByTeacherEmail} invites you to the course ${it.courseName}?"
+                    notificationMessages.add(message)
+                    val notification = createNotificationView(message,it)
+                    notificationListLinearLayout.addView(notification)
+                }
             }
         }
         popupWindow.showAsDropDown(view)

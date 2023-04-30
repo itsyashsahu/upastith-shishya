@@ -1,18 +1,15 @@
 package com.axyz.upasthithshishya.activity
 
 
-import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.hardware.Camera
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.axyz.upasthithshishya.*
+import com.axyz.upasthithshishya.PermissionUtils
 import com.axyz.upasthithshishya.databinding.ActivityGiveAttendanceBinding
-import com.axyz.upasthithshishya.databinding.DialogEnterPinBinding
 import com.axyz.upasthithshishya.other.CameraPreview
 
 class GiveAttendance : AppCompatActivity() {

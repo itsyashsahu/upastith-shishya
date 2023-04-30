@@ -1,18 +1,16 @@
 package com.axyz.upasthithshishya.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.axyz.upasthithshishya.R
-import com.axyz.upasthithshishya.activity.LoginActivity
 import com.axyz.upasthithshishya.apidata.SignupRequest
-import com.axyz.upasthithshishya.other.CheckLogin
 import com.axyz.upasthithshishya.other.EventObserver
 import com.axyz.upasthithshishya.viewModels.SignupViewModel
 import dagger.hilt.android.AndroidEntryPoint

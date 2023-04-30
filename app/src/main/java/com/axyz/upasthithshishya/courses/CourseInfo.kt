@@ -6,9 +6,7 @@ import android.widget.CalendarView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.axyz.upasthithshishya.R
 import com.axyz.upasthithshishya.Realm.Course
-import com.axyz.upasthithshishya.Realm.CourseRepository
 import com.axyz.upasthithshishya.Realm.StudentRecord
 import com.axyz.upasthithshishya.data.realmModule.realm
 import com.axyz.upasthithshishya.databinding.ActivityCourseInfoBinding
