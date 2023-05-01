@@ -17,11 +17,13 @@
 
         <ImageView
             android:id="@+id/upastithLogoImageView"
-            android:layout_width="180dp"
-            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="130dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/upastith_logo" />
+            android:src="@drawable/shishya_wordmark" />
 
         <ImageView
             android:id="@+id/appNotificaitons"
@@ -29,8 +31,8 @@
             android:layout_height="0dp"
             android:layout_alignTop="@+id/homeProfileImageView"
             android:layout_alignBottom="@+id/homeProfileImageView"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="11dp"
             android:layout_toStartOf="@+id/homeProfileImageView"
             android:background="@drawable/ic_notification"
             android:backgroundTint="@color/white"
@@ -58,7 +60,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="3dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="3dp"
 
             android:background="@drawable/curved_textview"
