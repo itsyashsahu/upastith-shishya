@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginVertical="7dp"
+    app:cardElevation="4dp"
+    android:backgroundTint="@color/custom_color_bg_shadow"
+    app:cardCornerRadius="10dp"
+    android:padding="15dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="11dp"
+        android:background="@color/custom_color_bg_shadow"
+        >
+        <TextView
+            android:id="@+id/ClassNumberView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Class 1(date)"
+            android:textSize="18sp"
+            android:textColor="@color/custom_color_bg"
+            android:textStyle="bold"
+            />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right_tick"
+            android:contentDescription="more Info"
+            android:layout_alignParentEnd="true"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
