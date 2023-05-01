@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.axyz.upasthithshishya.R
+import com.axyz.upasthithshishya.Realm.ClassAttendanceManager
 import com.axyz.upasthithshishya.Realm.Course
 import com.axyz.upasthithshishya.Realm.CourseRepository
 import com.axyz.upasthithshishya.Realm.InvitationRecord
@@ -93,9 +94,11 @@ class HomeFragment : Fragment() {
         notificationMessages = mutableListOf()
         CoroutineScope(Dispatchers.Main).launch {
             invitations= realmModule.realm.query<InvitationRecord>().find()
+            Log.d("INvitations","${invitations}")
             invitations.forEach(){
-                if (it.status == "sent")
-                {
+
+                Log.d("INvitations status ","${it.status}")
+                if(it.status == "sent"){
                     val message = "${it.invitedByTeacherEmail} invites you to the course ${it.courseName}?"
                     notificationMessages.add(message)
                     val notification = createNotificationView(message,it)
@@ -156,6 +159,7 @@ class HomeFragment : Fragment() {
                 if (isSynced) {
                     Log.d("Sync Update :: ", "------- Sync COMPLETED ------- ")
                     val fetchedCourses = CourseRepository().getAllCourse()
+//                    ClassAttendanceManager().getClassAttendanceRecord("644e78c2aa19bd5e11481da1")
                     for (course in fetchedCourses) {
                         var alreadyExists = false
                         for (existingCourse in courseList) {

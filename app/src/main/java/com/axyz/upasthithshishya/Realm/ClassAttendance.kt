@@ -8,6 +8,7 @@ import com.axyz.upasthithshishya.data.realmModule
 import io.realm.kotlin.ext.backlinks
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import io.realm.kotlin.mongodb.ext.profileAsBsonDocument
 import io.realm.kotlin.query.RealmResults
 import io.realm.kotlin.types.RealmList
@@ -165,11 +166,14 @@ class ClassAttendanceManager {
 //        }
 //    }
 
-//    suspend fun getClassAttendanceRecord(_id: ObjectId): ClassAttendance? {
-//        val realm = realmModule.realm
-//        var classAttendance=realm.query<ClassAttendance>("_id == $0",_id).first().find()
-//        return classAttendance
-//    }
+    fun getClassAttendanceRecord(courseId: String): RealmResults<StudentRecord> {
+        val realm = realmModule.realm
+        val studentEmail = app.currentUser?.customDataAsBsonDocument()?.getValue("email")
+            ?.asString()?.value.toString()
+        var classAttendance=realm.query<StudentRecord>("studentEmailId == $0 AND courseId == $1",studentEmail,courseId).find()
+        Log.d("Student Class Record :: "," --- $classAttendance")
+        return classAttendance
+    }
 
 
 //
