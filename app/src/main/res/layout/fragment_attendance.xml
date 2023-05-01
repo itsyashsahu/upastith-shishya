@@ -24,6 +24,7 @@
             android:src="@drawable/upastith_logo" />
 
 
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/attendanceFragmentProfile"
             android:layout_width="60dp"

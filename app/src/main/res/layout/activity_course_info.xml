@@ -108,55 +108,13 @@
                 android:textSize="12sp" />
         </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/enrolled_students"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/courseDescDetail"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/custom_color_bg_shadow"
-            app:cardCornerRadius="10dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/custom_color_bg_shadow"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:text="Enrolled Students"
-                    android:paddingStart="8dp"
-                    android:textColor="@color/custom_color_bg"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:contentDescription="more Info"
-                    android:src="@drawable/ic_right"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </RelativeLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/text_attendance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/calendar_card_view"
+            android:layout_above="@id/calendar_card_view"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:gravity="center_horizontal"
@@ -169,22 +127,25 @@
             android:id="@+id/calendar_card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="13dp"
+            android:layout_marginBottom="30dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp">
 
             <CalendarView
                 android:id="@+id/courseInfoStudentAttendanceCalendar"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/enrolled_students"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/circled_button"
                 android:elevation="5dp"
                 android:measureAllChildren="true" />
