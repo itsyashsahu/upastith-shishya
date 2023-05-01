@@ -124,77 +124,81 @@
         app:layout_constraintStart_toStartOf="@+id/input_password"
         app:layout_constraintTop_toBottomOf="@+id/input_password"
         />
+
+    <LinearLayout
+        android:id="@+id/departmentSpinnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="15dp"
+        android:background="@drawable/circled_button"
+        android:backgroundTint="@color/custom_color_card"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/input_rollNo"
+        app:layout_constraintStart_toStartOf="@+id/input_rollNo"
+        app:layout_constraintTop_toBottomOf="@+id/input_rollNo">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="2"
+            android:paddingLeft="12dp"
+            android:gravity="start|center_vertical"
+            android:text="Department"
+            android:textColor="@color/custom_color_bg"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/departmentDropDownView"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/department_options"
+            android:minHeight="48dp"
+            android:foregroundTint="@color/custom_color_bg"
+            android:backgroundTint="@color/custom_color_bg"
+            android:textAlignment="textEnd"
+            android:textSize="16sp" />
+    </LinearLayout>
     <EditText
         android:id="@+id/input_batch"
         android:layout_width="0dp"
         android:layout_height="36dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginVertical="15dp"
         android:background="@drawable/rectangular_input_bg"
         android:elegantTextHeight="true"
         android:ems="10"
         android:hint="Batch"
         android:inputType="text|number"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:textColor="@color/custom_color_bg"
         android:textColorHint="@color/edit_input"
         android:textSize="16sp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        tools:ignore="TouchTargetSizeCheck"
-        app:layout_constraintEnd_toEndOf="@+id/input_rollNo"
-        app:layout_constraintStart_toStartOf="@+id/input_rollNo"
-        app:layout_constraintTop_toBottomOf="@+id/input_rollNo"
-        />
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-        android:id="@+id/departmentDropdownLayout"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="12dp"
-        app:boxStrokeWidth="2dp"
-        app:endIconTint="@color/custom_color_bg"
-        app:boxStrokeColor="@color/custom_color_bg"
-        app:counterTextColor="@color/custom_color_bg"
-        app:hintTextColor="@color/custom_color_bg"
-        android:textColorHint="@color/custom_color_bg"
-        app:placeholderTextColor="@color/custom_color_bg"
-        app:counterOverflowTextColor="@color/custom_color_bg"
-        android:background="@drawable/rectangular_input_bg"
-        app:layout_constraintEnd_toEndOf="@+id/input_batch"
-        app:layout_constraintStart_toStartOf="@+id/input_batch"
-        app:layout_constraintTop_toBottomOf="@+id/input_batch"
-        >
-        <AutoCompleteTextView
-            android:id="@+id/departmentDropDownView"
-            android:layout_width="match_parent"
-            android:background="@drawable/drop_down_bg"
-            android:layout_height="wrap_content"
-            android:isScrollContainer="true"
-            android:hint="Department"
+        app:layout_constraintEnd_toEndOf="@+id/departmentSpinnerLayout"
+        app:layout_constraintStart_toStartOf="@+id/departmentSpinnerLayout"
+        app:layout_constraintTop_toBottomOf="@+id/departmentSpinnerLayout"
+        tools:ignore="TouchTargetSizeCheck" />
 
-            tools:ignore="TouchTargetSizeCheck"
-            android:paddingTop="10dp"
-            android:inputType="none"
-            android:maxLines="1"
-            android:textColor="@color/custom_color_bg"
-            android:textColorHint="@color/custom_color_bg"
-            android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_create"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:background="@drawable/click_btn_bg"
         android:backgroundTint="@color/custom_color_bg"
+        android:text="Create"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:text="Create"
-        android:textSize="25sp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/departmentDropdownLayout"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/input_batch"
         app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="@+id/departmentDropdownLayout"
-        app:layout_constraintTop_toBottomOf="@+id/departmentDropdownLayout" />
+        app:layout_constraintStart_toStartOf="@+id/input_batch"
+        app:layout_constraintTop_toBottomOf="@+id/input_batch" />
     <TextView
         android:id="@+id/text_signIn"
         android:layout_width="0dp"

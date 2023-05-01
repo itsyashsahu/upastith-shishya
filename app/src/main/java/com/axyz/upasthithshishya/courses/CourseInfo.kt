@@ -21,7 +21,7 @@ class CourseInfo : AppCompatActivity() {
     private lateinit var semester:TextView
     private lateinit var credits:TextView
     private lateinit var description:TextView
-    private lateinit var enrolledStudents:CardView
+//    private lateinit var enrolledStudents:CardView
     private lateinit var studentAttendance: CalendarView
     private lateinit var courseId: ObjectId
     private lateinit var course: Course
@@ -36,7 +36,7 @@ class CourseInfo : AppCompatActivity() {
         semester = binding.semesterTextView
         credits = binding.creditsTextView
         description = binding.descriptionTextView
-        enrolledStudents = binding.enrolledStudents
+//        enrolledStudents = binding.enrolledStudents
         studentAttendance = binding.courseInfoStudentAttendanceCalendar
 //        course = CourseRepository().getCourse(courseId)!!
 //        Log.d("Course","Course Details -------> ${course.name}")
